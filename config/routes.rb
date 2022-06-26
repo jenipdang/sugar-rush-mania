@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :reviews
   namespace :api do
     resources :products do 
       resources :reviews, shallow: true
