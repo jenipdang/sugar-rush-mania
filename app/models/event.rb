@@ -5,7 +5,7 @@ class Event < ApplicationRecord
     has_many :reviews, through: :products
 
     validates :name, :datetime, :location, presence: true
-    validates :datetime, comparison: { greater_than: DateTime.now}
+    # validates :datetime, comparison: { greater_than: DateTime.now}
 
     def total_cost
         self.products.sum(:price) * self.orders.sum(:quantity)
