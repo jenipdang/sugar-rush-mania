@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: phase_4_deploying_demo_app_development
+  database: sugar_rush_mania_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: phase_4_deploying_demo_app_test
+  database: sugar_rush_mania_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: phase_4_deploying_demo_app_production
-  username: phase_4_deploying_demo_app
-  password: <%= ENV['PHASE_4_DEPLOYING_DEMO_APP_DATABASE_PASSWORD'] %>
+  database: sugar_rush_mania_production
+  username: sugar_rush_mania
+  password: <%= ENV["SUGAR_RUSH_MANIA_DATABASE_PASSWORD"] %>

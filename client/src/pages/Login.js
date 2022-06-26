@@ -9,7 +9,7 @@ function Login({ onLogin }) {
 
   return (
     <Wrapper>
-      <Logo>Reciplease</Logo>
+      <Logo>Sugar Rush Mania</Logo>
       {showLogin ? (
         <>
           <LoginForm onLogin={onLogin} />
