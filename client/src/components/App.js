@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import { AccountBox } from "./accountBox/Login";
 import ProductContainer from './products/ProductContainer'
 import About from "../pages/About";
+import Footer from "./Footer";
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           </Route> */}
         </Switch>
       </main>
+      <Footer />
     </>
   );
 }
