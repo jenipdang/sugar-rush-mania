@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import { AccountBox } from "./accountBox/Login";
-import ProductList from './products/ProductList'
-// import NewRecipe from "../pages/NewRecipe";
+import ProductContainer from './products/ProductContainer'
+import About from "../pages/About";
 
 
 function App() {
@@ -29,7 +29,10 @@ function App() {
             <NewRecipe user={user} />
           </Route> */}
           <Route path="/products">
-            <ProductList />
+            <ProductContainer />
+          </Route>
+          <Route path="/about">
+            <About />
           </Route>
           {/* <Route path="/account">
             <AccountBox />

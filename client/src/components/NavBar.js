@@ -25,9 +25,9 @@ function NavBar({ user, setUser }) {
           style={{ maxHeight: '100px' }}
           navbarScroll
         >
-          <Nav.Link href="#action1">Products</Nav.Link>
-          <Nav.Link href="#action2">About</Nav.Link>
-          <Nav.Link href="#action2">Contact Us</Nav.Link>
+          <Nav.Link href="/products">Products</Nav.Link>
+          <Nav.Link href="/about">About</Nav.Link>
+          <Nav.Link href="/contact">Contact Us</Nav.Link>
           {/* <Nav.Link href="#" disabled>
             Link
           </Nav.Link> */}
@@ -38,13 +38,9 @@ function NavBar({ user, setUser }) {
           ): null}
         {user ? (
           <NavDropdown title={user.username} id="navbarScrollingDropdown" style={{marginRight: '40px'}}>
-            <NavDropdown.Item href="#action3">Profile</NavDropdown.Item>
+            <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
             <NavDropdown.Item onClick={handleLogoutClick}>
               Log Out
-            {/* </NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action5">
-              Something else here */}
             </NavDropdown.Item>
           </NavDropdown>
           ) : null
