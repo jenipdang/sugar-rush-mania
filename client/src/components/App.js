@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import { AccountBox } from "./accountBox/Login";
-// import RecipeList from "../pages/RecipeList";
+import ProductList from './products/ProductList'
 // import NewRecipe from "../pages/NewRecipe";
 
 
@@ -27,10 +27,10 @@ function App() {
         <Switch>
           {/* <Route path="/new">
             <NewRecipe user={user} />
-          </Route>
-          <Route path="/">
-            <RecipeList />
           </Route> */}
+          <Route path="/products">
+            <ProductList />
+          </Route>
           {/* <Route path="/account">
             <AccountBox />
           </Route> */}
