@@ -1,4 +1,3 @@
-import React from "react";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -18,7 +17,9 @@ function NavBar({ user, setUser }) {
   return (
     <Navbar style={{ background: "linear-gradient(to right, #ddd6f3, #faaca8)"}} expand="lg">
     <Container fluid>
-      <Navbar.Brand href="#">Sugar Rush Mania</Navbar.Brand>
+      <Navbar.Brand>
+        <object type='image/svg+xml' data='SugarRushMania.svg' alt="Sugar Rush Mania">Sugar Rush Mania</object>
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
         <Nav
