@@ -1,7 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { Button } from "../styles";
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function NavBar({ user, setUser }) {
   function handleLogoutClick() {
@@ -13,47 +16,51 @@ function NavBar({ user, setUser }) {
   }
 
   return (
-    <Wrapper>
-      <Logo>
-        <Link to="/">Reciplease</Link>
-      </Logo>
-      <Nav>
-        <Button as={Link} to="/new">
-          New Recipe
-        </Button>
-        <Button variant="outline" onClick={handleLogoutClick}>
-          Logout
-        </Button>
-      </Nav>
-    </Wrapper>
+    <Navbar style={{ background: "linear-gradient(to right, #ddd6f3, #faaca8)"}} expand="lg">
+    <Container fluid>
+      <Navbar.Brand href="#">Sugar Rush Mania</Navbar.Brand>
+      <Navbar.Toggle aria-controls="navbarScroll" />
+      <Navbar.Collapse id="navbarScroll">
+        <Nav
+          className="me-auto my-2 my-lg-0"
+          style={{ maxHeight: '100px' }}
+          navbarScroll
+        >
+          <Nav.Link href="#action1">Products</Nav.Link>
+          <Nav.Link href="#action2">Contact Us</Nav.Link>
+          {!user ? (
+            <Nav.Link href="/account">Sign In</Nav.Link>
+          ): null}
+          {user ? (
+          <NavDropdown title={user.username} id="navbarScrollingDropdown">
+            <NavDropdown.Item href="#action3">Profile</NavDropdown.Item>
+            <NavDropdown.Item onClick={handleLogoutClick}>
+              Log Out
+            {/* </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="#action5">
+              Something else here */}
+            </NavDropdown.Item>
+          </NavDropdown>
+          ) : null
+          }
+          {/* <Nav.Link href="#" disabled>
+            Link
+          </Nav.Link> */}
+        </Nav>
+        <Form className="d-flex">
+          <Form.Control
+            type="search"
+            placeholder="Search"
+            className="me-2"
+            aria-label="Search"
+          />
+          <Button variant="outline-success">Search</Button>
+        </Form>
+      </Navbar.Collapse>
+    </Container>
+  </Navbar>
   );
 }
-
-const Wrapper = styled.header`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px;
-`;
-
-const Logo = styled.h1`
-  font-family: "Permanent Marker", cursive;
-  font-size: 3rem;
-  color: deeppink;
-  margin: 0;
-  line-height: 1;
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  gap: 4px;
-  position: absolute;
-  right: 8px;
-`;
 
 export default NavBar;
