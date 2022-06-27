@@ -104,7 +104,6 @@ import styled from "styled-components";
             <ListItem>Family Reunion</ListItem>
             <ListItem>Surprise Party</ListItem>
             <ListItem>Bachelor/Bachelorrete Party</ListItem>
-            <ListItem>Geme Night</ListItem>
           </List>
         </Center>
         <Right>

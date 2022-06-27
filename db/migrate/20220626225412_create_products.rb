@@ -6,7 +6,7 @@ class CreateProducts < ActiveRecord::Migration[6.1]
       t.string :description
       t.string :category
       t.boolean :seasonal
-      t.string :images_url
+      # t.string :images_url
 
       t.timestamps
     end

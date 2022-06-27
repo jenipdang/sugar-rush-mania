@@ -70,7 +70,6 @@ ActiveRecord::Schema.define(version: 2022_06_26_231756) do
     t.string "description"
     t.string "category"
     t.boolean "seasonal"
-    t.string "images_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -80,7 +79,6 @@ ActiveRecord::Schema.define(version: 2022_06_26_231756) do
     t.string "title"
     t.text "content"
     t.string "rating"
-    t.string "images_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false

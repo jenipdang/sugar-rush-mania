@@ -10,7 +10,6 @@ class Api::ProductsController < ApplicationController
           event = Event.find(params[:event_id])
           render json: event.products
       else
-          # render json: ProductSerializer.new(Product.preload(:reviews)).serializable_hash
           render json: Product.all
       end
 
@@ -59,7 +58,7 @@ class Api::ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :price, :description, images: [])
+    params.require(:product).permit(:event_id,:name, :price, :description, images: [])
   end
 
   def check_admin

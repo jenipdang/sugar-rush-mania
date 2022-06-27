@@ -5,6 +5,8 @@ import { AccountBox } from "./accountBox/Login";
 import ProductContainer from './products/ProductContainer'
 import About from "../pages/About";
 import Footer from "./Footer";
+import Product from "./products/Product";
+import ReviewsList from './reviews/ReviewsList'
 
 
 function App() {
@@ -26,11 +28,14 @@ function App() {
       <NavBar user={user} setUser={setUser} />
       <main>
         <Switch>
-          {/* <Route path="/new">
-            <NewRecipe user={user} />
-          </Route> */}
+          <Route path="/products/:id/reviews">
+            <ReviewsList user={user}/>
+          </Route>
+          <Route path="/products/:productId">
+            <Product user={user}/>
+          </Route>
           <Route path="/products">
-            <ProductContainer />
+            <ProductContainer user={user}/>
           </Route>
           <Route path="/about">
             <About />

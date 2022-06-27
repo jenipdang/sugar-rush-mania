@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-    has_many_attached :images
+    # has_many_attached :images
     has_many :orders
     has_many :events, through: :orders
     has_many :reviews, through: :orders
