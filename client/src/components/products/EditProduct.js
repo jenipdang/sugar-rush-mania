@@ -12,6 +12,13 @@ const NewProduct = ({ user }) => {
 		e.preventDefault();
 		setLoading(true);
 		const formData = new FormData();
+		// const formData = new FormData(e.target)
+		// formData.append("name", name)
+		// formData.append("price", price)
+		// formData.append("category", category)
+		// formData.append("description", description)
+		// formData.append("seasonal", seasonal)
+		// formData.append("image", image)
 
 		formData.append('product[name]', e.target.name.value);
 		formData.append('product[image]', e.target.image.files[0]);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
-import { AccountBox } from "./accountBox/Login";
+import { Login } from "./accountBox/Login";
 import ProductContainer from './products/ProductContainer'
 import About from "../pages/About";
 import Footer from "./Footer";
@@ -22,7 +22,7 @@ function App() {
     });
   }, []);
 
-  if (!user) return <AccountBox onLogin={setUser} />;
+  if (!user) return <Login onLogin={setUser} />;
 
   return (
     <>

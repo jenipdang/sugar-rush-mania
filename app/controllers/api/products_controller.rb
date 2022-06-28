@@ -1,6 +1,6 @@
 class Api::ProductsController < ApplicationController
   skip_before_action :authorize, only: [:index, :show, :create]
-  # before_action :find_product, only: [:show, :update, :destroy]
+  before_action :find_product, only: [:show, :update, :destroy]
   # before_action :check_admin, except: [:index, :show]
 
 
@@ -12,7 +12,7 @@ class Api::ProductsController < ApplicationController
   #POST "/products"
   def create
     product = Product.create!(product_params)
-    render json: serialized_product, status: :created
+    render json: product, status: :created
   end
 
 
@@ -45,10 +45,11 @@ class Api::ProductsController < ApplicationController
   end
 
   def product_params
-    params.permit(:name, :price, :description, :seasonal, :category, :image)
+    params.require(:product).permit(:name, :price, :description, :seasonal, :category, :image)
   end
 
   # def check_admin
   #   render json: { errors: ["Not Authorized"]}, status: :unauthorized unless @current_user.admin?
   # end
+
 end

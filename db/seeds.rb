@@ -41,6 +41,6 @@ Order.create!(event_id: e3.id, product_id: p3.id, quantity: 50)
 
 
 puts "🌱 Creating reviews..."
-Review.create!(event_id: e1.id, user_id: kim.id, title: "Best Desserts in Town!", content: "The dessert table setup was so pretty! Love the result of the theme cupcake! Would definite recommend this to all my friends and family.", rating: "5")
+Review.create!(event_id: e1.id, user_id: kim.id, product_id: p3.id, title: "Best Desserts in Town!", content: "The dessert table setup was so pretty! Love the result of the theme cupcake! Would definite recommend this to all my friends and family.", rating: "5")
 
 puts "🌱 Seeding done!"

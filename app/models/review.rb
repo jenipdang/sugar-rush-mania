@@ -1,6 +1,6 @@
 class Review < ApplicationRecord
-
   has_many_attached :images
+  belongs_to :product
   belongs_to :event
   belongs_to :commenter, class_name: "User", foreign_key: :user_id
 

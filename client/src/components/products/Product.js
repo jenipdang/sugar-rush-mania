@@ -1,9 +1,10 @@
 import { useLocation, useParams, Link } from 'react-router-dom';
-import { Card } from 'semantic-ui-react';
+// import { Card } from 'semantic-ui-react';
 import { useGlobalContext } from '../data/context';
 import { useEffect, useState } from 'react';
 import NewReview from '../reviews/NewReview';
 import ReviewsList from '../reviews/ReviewsList';
+import './products.css'
 
 const Product = ({ user, product }) => {
 	const { addItem } = useGlobalContext();
@@ -33,13 +34,13 @@ const Product = ({ user, product }) => {
 
 	console.log(finalProduct)
 	return (
-		<Card.Group itemsPerRow={4}>
+		<div className='product'>
 			<div className='col-md-4 mb-4' key={finalProduct.id}>
 				<div className='card'>
 					<img
-						src={finalProduct.images_url}
+						src={finalProduct.image_url}
 						className='card-img-top'
-						alt='...'
+						alt={finalProduct.name}
 					/>
 					<div className='card-body'>
 						<Link
@@ -53,18 +54,24 @@ const Product = ({ user, product }) => {
 						>
 							<h5 className='card-title'>{finalProduct.name}</h5>
 						</Link>
-						<p>Price: {finalProduct.price}</p>
+						<p>Price: ${finalProduct.price}</p>
+						<p>Cateogry: {finalProduct.category}</p>
+						<hr />
 						<p className='card-text'>{finalProduct.description}</p>
 						<button className='btn btn-dark' onClick={() => addItem(product)}>
 							Add to Cart
 						</button>
+						{location.pathname !== '/products' ? (
+							<>
+							<NewReview productId={finalProduct.id} addNewReview={addNewReview} />
+							<br/>
+							<ReviewsList reviews={reviews} />
+							</>
+						) : null}
 					</div>
-					<NewReview productId={finalProduct.id} addNewReview={addNewReview} />
-					<br/>
-					<ReviewsList reviews={reviews} />
 				</div>
 			</div>
-		</Card.Group>
+		</div>
 	);
 };
 

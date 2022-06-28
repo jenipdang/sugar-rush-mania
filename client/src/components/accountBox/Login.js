@@ -104,7 +104,7 @@ const expandingTransition = {
 	stiffness: 30,
 };
 
-export function AccountBox(props, onLogin) {
+export function Login(props, onLogin) {
 	const [isExpanded, setExpanded] = useState(false);
 	const [active, setActive] = useState('signin');
 
