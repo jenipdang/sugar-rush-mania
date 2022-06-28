@@ -7,6 +7,7 @@ import About from "../pages/About";
 import Footer from "./Footer";
 import Product from "./products/Product";
 import ReviewsList from './reviews/ReviewsList'
+import NewProduct from "./products/NewProduct";
 
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
       <NavBar user={user} setUser={setUser} />
       <main>
         <Switch>
+          <Route path="/products/new">
+            <NewProduct user={user}/>
+          </Route>
           <Route path="/products/:id/reviews">
             <ReviewsList user={user}/>
           </Route>

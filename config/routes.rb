@@ -16,7 +16,6 @@ Rails.application.routes.draw do
     resources :orders, only: [:update, :destroy, :show]
 
     resources :events do 
-      resources :products, shallow: true
       resources :orders, shallow: true
     end
   end

@@ -39,6 +39,7 @@ function NavBar({ user, setUser }) {
         {user ? (
           <NavDropdown title={user.username} id="navbarScrollingDropdown" style={{marginRight: '40px'}}>
             <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+            <NavDropdown.Item href="/products/new">New Product</NavDropdown.Item>
             <NavDropdown.Item onClick={handleLogoutClick}>
               Log Out
             </NavDropdown.Item>

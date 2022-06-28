@@ -1,6 +1,6 @@
 class Review < ApplicationRecord
 
-  # has_many_attached :images
+  has_many_attached :images
   belongs_to :event
   belongs_to :commenter, class_name: "User", foreign_key: :user_id
 
@@ -15,7 +15,7 @@ class Review < ApplicationRecord
     end
   end
 
-  # def images_url
-  #   Rails.application.routes.url_helpers.url_for(images) if images.attached? 
-  # end
+  def images_url
+    Rails.application.routes.url_helpers.url_for(images) if images.attached? 
+  end
 end
