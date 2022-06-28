@@ -76,7 +76,7 @@ import styled from "styled-components";
       <Container>
         <Left>
           <Logo>
-          <object type='image/svg+xml' data='SRM1.svg' alt="Sugar Rush Mania">Sugar Rush Mania</object>
+          {/* <object type='image/svg+xml' data='SRM1.svg' alt="Sugar Rush Mania">Sugar Rush Mania</object> */}
           </Logo>
           {/* <Desc>
             There are many variations of passages of Lorem Ipsum available, but

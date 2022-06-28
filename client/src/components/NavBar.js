@@ -16,7 +16,7 @@ function NavBar({ user, setUser }) {
     <Navbar style={{ background: "linear-gradient(to right, #ddd6f3, #faaca8)"}} expand="lg">
     <Container fluid>
       <Navbar.Brand>
-        <object type='image/svg+xml' data='SugarRushMania.svg' alt="Sugar Rush Mania">Sugar Rush Mania</object>
+        {/* <object type='image/svg+xml' data='SugarRushMania.svg' alt="Sugar Rush Mania">Sugar Rush Mania</object> */}
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
