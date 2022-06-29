@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   enum role: [:guest, :admin]
   has_secure_password
+  has_many :posted_products, foreign_key: :user_id, class_name: "Product", dependent: :destroy
   has_many :hosted_events, foreign_key: :user_id, class_name: "Event", dependent: :destroy
   has_many :orders, through: :hosted_events
   has_many :reviews

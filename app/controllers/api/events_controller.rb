@@ -16,6 +16,7 @@ before_action :check_admin, only: [:update, :destroy]
   #POST "/events"
   def create
       @event = current_user.events.create!(event_params)
+      Order.create(event: @event, product: product, quantity: params[:quantity])
       render json: serialized_event, status: :created
   end
 

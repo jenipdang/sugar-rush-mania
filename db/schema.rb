@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_28_194052) do
+ActiveRecord::Schema.define(version: 2022_06_29_025743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,9 +69,10 @@ ActiveRecord::Schema.define(version: 2022_06_28_194052) do
     t.integer "price"
     t.string "description"
     t.string "category"
-    t.boolean "seasonal"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -94,11 +95,13 @@ ActiveRecord::Schema.define(version: 2022_06_28_194052) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "role", default: 0
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "events", "users"
+  add_foreign_key "products", "users"
   add_foreign_key "reviews", "events"
   add_foreign_key "reviews", "products"
   add_foreign_key "reviews", "users"

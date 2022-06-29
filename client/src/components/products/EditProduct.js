@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { FormField, Input, Label, Textarea } from '../../styles';
 
-const NewProduct = ({ user }) => {
+const EditProduct = ({ user }) => {
 	const [product, setProduct] = useState();
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
@@ -12,19 +12,11 @@ const NewProduct = ({ user }) => {
 		e.preventDefault();
 		setLoading(true);
 		const formData = new FormData();
-		// const formData = new FormData(e.target)
-		// formData.append("name", name)
-		// formData.append("price", price)
-		// formData.append("category", category)
-		// formData.append("description", description)
-		// formData.append("seasonal", seasonal)
-		// formData.append("image", image)
 
 		formData.append('product[name]', e.target.name.value);
 		formData.append('product[image]', e.target.image.files[0]);
 		formData.append('product[price]', e.target.price.value);
 		formData.append('product[description]', e.target.description.value);
-		formData.append('product[seasonal]', e.target.seasonal.value);
 		formData.append('product[category]', e.target.category.value);
 		submitToAPI(formData);
 	};
@@ -63,10 +55,6 @@ const NewProduct = ({ user }) => {
 						<Textarea type='text' name='description' id='description' />
 					</FormField>
 					<FormField>
-						<Label htmlFor='seasonal'>Seasonal</Label>
-						<Input type='text' name='seasonal' id='seasonal' placeholder='true/false'/>
-					</FormField>
-					<FormField>
 						<Label htmlFor='image'>Image</Label>
 						<Input type='file' name='image' id='image' />
 					</FormField>
@@ -91,4 +79,4 @@ const WrapperChild = styled.div`
 	flex: 1;
 `;
 
-export default NewProduct;
+export default EditProduct;

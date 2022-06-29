@@ -9,38 +9,32 @@ e2 = Event.create!(name: "Aliza's HS Graduation Party", datetime: "Sat, 09 JUL 2
 e3 = Event.create!(name: "Racheal's Babyshower", datetime: "Sat, 16 JUL 2022", location: "San Jose Armory", address: "240 N 2nd St, San Jose, CA 95112", user_id: racheal.id)
 
 puts "🌱 Creating products..."
-p1 = Product.create!(name: "Customize Cake Pop", price: "5.00", description: "Available Flavors: Strawberry, Chocolate, and Vanilla. Color/Design: Event Theme", category: "Cake Pop", seasonal: 0) 
+p1 = Product.create!(user_id: jeni.id, name: "Dinosaur Party", price: "5.00", description: "Dinosaur Theme Party. A roarsome way to celebrate! ", category: "Cake Pop").image.attached(to: File.open('/Users/jenidang/Development/code/Phase5/SRM_Images/dinosaur_cakepop.png'), filename: 'dinosaur_cakepop.png')
 
-# mages_url: ["https://www.instagram.com/p/CdmCD4xPCWE/, https://www.instagram.com/p/Ccf9w3tJj-0/, https://www.instagram.com/p/Cai9Z0TLEuQ/, https://www.instagram.com/p/CUf-0G6PSjW/, https://www.instagram.com/p/CSW6YoYHIeg/"]
+p2 = Product.create!(user_id: jeni.id, name: "Cute Monsters Attack!", price: "7.50", description: "Who said monsters are scary...? Cute colorful monsters are coming to crash the party!", category: "Muffin/Cupcake").image.attached(to: File.open('/Users/jenidang/Development/code/Phase5/SRM_Images/monsters_cupcake.png'), filename: 'monsters_cupcake.png')
 
-p2 = Product.create!(name: "Breakable Heart", price: "100.00", description: "Available Flavors: White, Milk or Dark Chocolate. Color/Design: Event Theme", category: "Chocolate", seasonal: 0)
-#  images_url: ["https://www.instagram.com/p/CbQhL3sPMu7/", "https://www.instagram.com/p/Cc0h7AzLBkj/", "https://www.instagram.com/p/CP2EcO3DatF/", "https://www.instagram.com/p/CIhi8jsDQmx/", "https://www.instagram.com/p/CIGZ1Q0DsnC/"]
-p3 = Product.create!(name: "Theme Cupcake", price: "5.00", description: "Available Flavors: Chocolate and Vanilla. Color/Design: Event Theme", category: "Muffin Cupcake", seasonal: 0) 
-# images_url: ["https://www.instagram.com/p/CdWoPrLv9Ei/", "https://www.instagram.com/p/CWkLT_GMopz/", "https://www.instagram.com/p/CWUBbFPvI_I/", "https://www.instagram.com/p/CTQ3gfRLcBY/", "https://www.instagram.com/p/CN6QXDjDYXw/"]
-p4 = Product.create!(name: "6 inch Cake", price: "70", description: "We have a cake for every occassion. Every cake has a story.", category: "Cake", seasonal: 0) 
-# images_url: ["https://www.instagram.com/p/CQJt7rcDDL9/"]
-p5 = Product.create!(name: "Creme Brulee", price: "8.50", description: "Available Flavors: Vanilla, Chocolate, Lemon, Green Tea, and Ube", category: "Cake", seasonal: 0) 
+p3 = Product.create!(user_id: jeni.id, name: "Blooming Succulent Cupcakes", price: "8.50", description: "Turn your cupcakes into little mini gardens with these Blooming Succulent Cupcakes", category: "Muffin/Cupcake").image.attached(to: File.open('/Users/jenidang/Development/code/Phase5/SRM_Images/succulent_cupcake.png'), filename: 'succulent_cupcake.png')
 
-# images_url: ["https://www.instagram.com/p/CRzfjW9DgwM/", "https://www.instagram.com/p/CQUV-fLjJec/", "https://www.instagram.com/p/CCTy1-MDAAf/", "https://www.instagram.com/p/CTxG8ceJfNU/"]
+p4 = Product.create!(user_id: jeni.id, name: "Monster Cake", price: "100", description: "Mini monster making its way onto the dessert table!!", category: "Cake").image.attached(to: File.open('/Users/jenidang/Development/code/Phase5/SRM_Images/monster_cake.png'), filename: 'monster_cake.png')
 
-p6 = Product.create!(name: "Cookie", price: "4.50", description: "Available Flavors: Chocolate Chip, Oatmeal Raisin, White Chocolate Chip, Peanut Butter and Butter", category: "Cookie", seasonal: 0) 
+p5 = Product.create!(user_id: jeni.id, name: "Creme Brulee", price: "8.50", description: "Available Flavors: Vanilla, Chocolate, Lemon, Green Tea, and Ube", category: "Cake").image.attached(to: File.open('/Users/jenidang/Development/code/Phase5/SRM_Images/ube_creme_burle.png'), filename: 'ube_creme_burle.png') 
 
-# images_url: ["https://www.instagram.com/p/BrRxr67nYq4/", "https://www.instagram.com/p/CSE6doHHT0y/", "https://www.instagram.com/p/CXbziDQPR-O/"]
+p6 = Product.create!(user_id: jeni.id, name: "Cookie", price: "4.50", description: "Available Flavors: Chocolate Chip, Oatmeal Raisin, White Chocolate Chip, Peanut Butter and Butter", category: "Cookie").image.attached(to: File.open('/Users/jenidang/Development/code/Phase5/SRM_Images/cookies.png'), filename: 'cookies.png')
 
 
 puts "🌱 Creating orders..."
-Order.create!(event_id: e1.id, product_id: p3.id, quantity: 50)
-Order.create!(event_id: e1.id, product_id: p5.id, quantity: 100)
-Order.create!(event_id: e1.id, product_id: p6.id, quantity: 100)
-Order.create!(event_id: e2.id, product_id: p4.id, quantity: 1)
-Order.create!(event_id: e2.id, product_id: p3.id, quantity: 50)
-Order.create!(event_id: e2.id, product_id: p6.id, quantity: 50)
-Order.create!(event_id: e3.id, product_id: p2.id, quantity: 1)
-Order.create!(event_id: e3.id, product_id: p1.id, quantity: 50)
-Order.create!(event_id: e3.id, product_id: p3.id, quantity: 50)
+Order.create(event_id: 1, product_id: 3, quantity: 50)
+Order.create(event_id: 1, product_id: 5, quantity: 100)
+Order.create(event_id: 1, product_id: 6, quantity: 100)
+Order.create(event_id: 2, product_id: 4, quantity: 1)
+Order.create(event_id: 2, product_id: 3, quantity: 50)
+Order.create(event_id: 2, product_id: 6, quantity: 50)
+Order.create(event_id: 3, product_id: 2, quantity: 1)
+Order.create(event_id: 3, product_id: 1, quantity: 50)
+Order.create(event_id: 3, product_id: 3, quantity: 50)
 
 
 puts "🌱 Creating reviews..."
-Review.create!(event_id: e1.id, user_id: kim.id, product_id: p3.id, title: "Best Desserts in Town!", content: "The dessert table setup was so pretty! Love the result of the theme cupcake! Would definite recommend this to all my friends and family.", rating: "5")
+Review.create!(event_id: 1, user_id: 2, product_id: 3, title: "Best Desserts in Town!", content: "The dessert table setup was so pretty! Love the result of the theme cupcake! Would definite recommend this to all my friends and family.", rating: "5")
 
 puts "🌱 Seeding done!"

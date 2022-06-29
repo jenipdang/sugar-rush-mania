@@ -4,12 +4,14 @@ import { useGlobalContext } from '../data/context';
 import { useEffect, useState } from 'react';
 import NewReview from '../reviews/NewReview';
 import ReviewsList from '../reviews/ReviewsList';
-import './products.css'
+// import './products.css'
+import './details.css'
 
 const Product = ({ user, product }) => {
 	const { addItem } = useGlobalContext();
 	const [productObj, setProductObj] = useState(null);
 	const [reviews, setReviews] = useState([]);
+	const [isEditing, setIsEditing] = useState(false)
 	const { productId } = useParams();
 	const location = useLocation();
 
@@ -34,7 +36,7 @@ const Product = ({ user, product }) => {
 
 	console.log(finalProduct)
 	return (
-		<div className='product'>
+		<div className='details'>
 			<div className='col-md-4 mb-4' key={finalProduct.id}>
 				<div className='card'>
 					<img
@@ -58,11 +60,23 @@ const Product = ({ user, product }) => {
 						<p>Cateogry: {finalProduct.category}</p>
 						<hr />
 						<p className='card-text'>{finalProduct.description}</p>
-						<button className='btn btn-dark' onClick={() => addItem(product)}>
+						<button className='btn btn-dark ms-2' onClick={() => addItem(product)}>
 							Add to Cart
 						</button>
+						{(!isEditing && location.pathname.includes('/product')) && user?.role === "admin" ? <>
+						<button className='btn btn-dark ms-2' onClick={() => addItem(product)}>
+							Edit
+						</button>
+						<button className='btn btn-dark ms-2' onClick={() => addItem(product)}>
+							Delete
+						</button>
+						</> 
+						: null}
+						
+						<br/>
 						{location.pathname !== '/products' ? (
 							<>
+							<br />
 							<NewReview productId={finalProduct.id} addNewReview={addNewReview} />
 							<br/>
 							<ReviewsList reviews={reviews} />

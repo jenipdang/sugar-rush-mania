@@ -19,6 +19,7 @@ class Api::OrdersController < ApplicationController
         render json: serialized_order
     end
 
+
     #PATCH "/orders/:id"
     def update
         @order&.update!(order_params)

@@ -17,8 +17,8 @@ const NewProduct = ({ user }) => {
 		formData.append('product[image]', e.target.image.files[0]);
 		formData.append('product[price]', e.target.price.value);
 		formData.append('product[description]', e.target.description.value);
-		formData.append('product[seasonal]', e.target.seasonal.value);
 		formData.append('product[category]', e.target.category.value);
+		formData.append('user[id]', user.id)
 		submitToAPI(formData);
 	};
 	const submitToAPI = (formData) => {
@@ -54,10 +54,6 @@ const NewProduct = ({ user }) => {
 					<FormField>
 						<Label htmlFor='description'>Description</Label>
 						<Textarea type='text' name='description' id='description' />
-					</FormField>
-					<FormField>
-						<Label htmlFor='seasonal'>Seasonal</Label>
-						<Input type='text' name='seasonal' id='seasonal' placeholder='true/false'/>
 					</FormField>
 					<FormField>
 						<Label htmlFor='image'>Image</Label>

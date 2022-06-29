@@ -11,7 +11,7 @@ class Api::ProductsController < ApplicationController
 
   #POST "/products"
   def create
-    product = Product.create!(product_params)
+    product = current_user.posted_products.create!(product_params)
     render json: product, status: :created
   end
 
@@ -45,7 +45,7 @@ class Api::ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :price, :description, :seasonal, :category, :image)
+    params.require(:product).permit(:user_id, :name, :price, :description, :category, :image)
   end
 
   # def check_admin
