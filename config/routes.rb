@@ -18,6 +18,13 @@ Rails.application.routes.draw do
     resources :events do 
       resources :orders, shallow: true
     end
+
+    # resources :products do 
+    #   member do
+    #     delete :delete_file
+    #   end
+    # end
+
   end
   # all other routes will be load our React application
   # this route definition matches:

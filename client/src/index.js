@@ -7,7 +7,6 @@ import { DataProvider } from './components/data/context'
 
 ReactDOM.render(
   <BrowserRouter>
-    {/* <GlobalStyle /> */}
     <DataProvider>
     <App />
     </DataProvider>

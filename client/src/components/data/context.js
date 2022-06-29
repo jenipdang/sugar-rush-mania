@@ -10,7 +10,7 @@ const DataProvider = ({children}) => {
 	
 	const getProduct = async (id) => {
 		try {
-			const response = await fetch('/api/products/');
+			const response = await fetch('/api/products');
 			const data = await response.json();
 			setProduct(data)
 		} catch (error) {

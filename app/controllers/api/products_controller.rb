@@ -33,6 +33,10 @@ class Api::ProductsController < ApplicationController
       render json: {message: "Successfully destroyed the product"}
   end
 
+  # def delete_file
+  #   file = ActiveStorage::Attachment.find(params[:id])
+  #   file.purge
+  # end
 
   private
 

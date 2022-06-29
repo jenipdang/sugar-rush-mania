@@ -28,7 +28,7 @@ const NewProduct = ({ user }) => {
 		})
 			.then((r) => r.json())
 			.then((data) => {
-				setProduct(data);
+				setProduct(orgData => orgData.concat(data));
 				history.push('/products');
 			})
 			.catch((err) => alert(err.errors));
@@ -38,7 +38,7 @@ const NewProduct = ({ user }) => {
 		<Wrapper>
 			<WrapperChild>
 				<h1>Create A New Product</h1>
-				<form onSubmit={(e) => handleSubmit(e)}>
+				<form onSubmit={handleSubmit}>
 					<FormField>
 						<Label htmlFor='name'>Name</Label>
 						<Input type='text' name='name' id='name' />
