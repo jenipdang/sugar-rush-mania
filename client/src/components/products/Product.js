@@ -40,6 +40,7 @@ const Product = ({ user, product }) => {
 			method: 'DELETE',
 		}).then(() => history.push('/products'));
 	};
+
 	const handleUpdate = (updatedProductObj) => {
 		setIsEditing(true);
 		setProductObj(updatedProductObj);

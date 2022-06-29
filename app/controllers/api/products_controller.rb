@@ -1,5 +1,5 @@
 class Api::ProductsController < ApplicationController
-  skip_before_action :authorize, only: [:index, :show, :create]
+  skip_before_action :authorize, only: [:index, :show, :create, :destroy]
   before_action :find_product, only: [:show, :update, :destroy]
   # before_action :check_admin, except: [:index, :show]
 
@@ -24,7 +24,7 @@ class Api::ProductsController < ApplicationController
   #PATCH "/products/:id"
   def update
       @product&.update!(product_params)
-      render json: serialized_product
+      render json: serialized_product, status: :accepted
   end
 
   #DELETE "/products/:id"
