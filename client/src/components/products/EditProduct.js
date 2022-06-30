@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { FormField, Input, Label, Textarea } from '../../styles';
+import { FormField, Input, Label, Textarea, Button } from '../../styles';
 import { MessageContext } from '../context/message';
 
 const EditProduct = ({ productObj, handleUpdate }) => {
@@ -81,7 +81,7 @@ const EditProduct = ({ productObj, handleUpdate }) => {
 						<Textarea type='text' name='description' id='description' value={product.description} onChange={handleChange}/>
 					</FormField>
 					<FormField>
-						<button type='submit'>{isLoading ? "Loading..." : "Update"}</button>
+						<Button type='submit'>{isLoading ? "Loading..." : "Update"}</Button>
 					</FormField>
 				</form>
 			</WrapperChild>
@@ -100,5 +100,7 @@ const Wrapper = styled.section`
 const WrapperChild = styled.div`
 	flex: 1;
 `;
+
+
 
 export default EditProduct;

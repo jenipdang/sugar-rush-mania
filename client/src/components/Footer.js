@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import { FaFacebook } from 'react-icons/fa'
+import { ImInstagram } from 'react-icons/im'
+import { BsFillTelephoneFill } from 'react-icons/bs'
+import { ImLocation } from 'react-icons/im'
+import { GrMail } from 'react-icons/gr'
 
 
   const Container = styled.div`
@@ -78,19 +83,21 @@ import styled from "styled-components";
           <Logo>
           {/* <object type='image/svg+xml' data='SRM1.svg' alt="Sugar Rush Mania">Sugar Rush Mania</object> */}
           </Logo>
-          {/* <Desc>
-            There are many variations of passages of Lorem Ipsum available, but
-            the majority have suffered alteration in some form, by injected
-            humour, or randomised words which don’t look even slightly believable.
-          </Desc> */}
-          {/* <SocialContainer>
+          <Desc>
+          All made from scratch using the finest ingredients, Sugar Rush Mania offer a vast array of delightful menu items daring to brighten anyone’s day.
+          </Desc>
+          <SocialContainer>
             <SocialIcon color="3B5999">
-            <i icon="fa-brands fa-facebook" />
+              <a href="https://www.facebook.com/sugarrushmania/" style={{ color: "white"}}>
+              <FaFacebook />
+              </a>
             </SocialIcon>
             <SocialIcon color="E4405F">
-            <i icon="fa-brands fa-instagram" />
+              <a href="https://www.instagram.com/sugarrushmania/" style={{ color: "white"}}>
+              <ImInstagram />
+              </a>
             </SocialIcon>
-          </SocialContainer> */}
+          </SocialContainer>
         </Left>
         <Center>
           <Title>Book Us!</Title>
@@ -109,13 +116,13 @@ import styled from "styled-components";
         <Right>
           <Title>Contact</Title>
           <ContactItem>
-          <i icon="fa-solid fa-location-dot" style={{marginRight:"10px"}}/> San Jose, CA
+          <ImLocation style={{marginRight:"10px"}}/> San Jose, CA
           </ContactItem>
           <ContactItem>
-            <i icon="fa-solid fa-phone" style={{marginRight:"10px"}}/> +1 408 430 7662
+            <BsFillTelephoneFill style={{marginRight:"10px"}}/> +1 408 430 7662
           </ContactItem>
           <ContactItem>
-            <i icon="fa-solid fa-envelope" style={{marginRight:"10px"}}/> info@sugarrushmania.com
+            <GrMail style={{marginRight:"10px"}}/> info@sugarrushmania.com
           </ContactItem>
           <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
         </Right>
