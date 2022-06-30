@@ -19,11 +19,13 @@ class Api::ReviewsController < ApplicationController
 
     #POST "/reviews" or "/products/:product_id/reviews"
     def create 
-        if params[:product_id]   
+        params[:product_id]
         product = Product.find(params[:product_id])
-        @review = current_user.reviews.create!(product: product, title: params[:title], content: params[:content], rating: params[:rating])
+        params[:event_id]   
+        event = Event.find(params[:event_id])
+        @review = current_user.reviews.create!(product: product, event: event, title: params[:title], content: params[:content], rating: params[:rating], image: params[:image])
         render json: serialized_review, status: :created
-        end
+        
     end
 
     #PATCH "/reviews/:id"
@@ -52,6 +54,6 @@ class Api::ReviewsController < ApplicationController
     end
 
     def review_params
-        params.permit(:title, :rating, :content, :product_id, :user_id)
+        params.permit(:title, :rating, :content, :product_id, :user_id, :image)
     end
 end

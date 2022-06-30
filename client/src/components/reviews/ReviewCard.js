@@ -7,6 +7,7 @@ import { MdOutlineVerified } from 'react-icons/md';
 import EditReview from './EditReview';
 import { AiFillEdit } from 'react-icons/ai'
 import { MdDeleteForever } from 'react-icons/md'
+import { MessageContext } from '../context/message';
 
 const ReviewCard = ({ review }) => {
 	const [reviewObj, setReviewObj] = useState(null);
@@ -15,6 +16,7 @@ const ReviewCard = ({ review }) => {
 	const location = useLocation();
 	const [isEditing, setIsEditing] = useState(false);
 	const { user } = useContext(UserContext);
+	const { setMessage } = useContext(MessageContext)
 
 	useEffect(() => {
 		if (!review) {
@@ -30,7 +32,15 @@ const ReviewCard = ({ review }) => {
 	const handleDelete = () => {
 		fetch(`/api/reviews/${reviewId}`, {
 			method: 'DELETE',
-		}).then(() => history.push('/products'));
+		}).then((r) => {
+			if (r.ok) {
+				setMessage({message: "Successfully deleted the review", color: "green"})
+				history.push('/products')
+			} else {
+				r.json().then((err) => setMessage(err.errors))
+			}
+		}) 
+		.catch((err) => setMessage(err.errors))
 	};
 
 	const handleUpdate = (updatedReviewObj) => {

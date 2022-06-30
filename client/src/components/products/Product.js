@@ -119,13 +119,16 @@ const Product = ({ product }) => {
 								<br />
 								{location.pathname !== '/products' ? (
 									<>
-										<br />
-										<NewReview
-											productId={finalProduct.id}
-											addNewReview={addNewReview}
-										/>
-										<br />
-
+										{!user ? null : (
+									<>
+									<br />
+									<NewReview
+										productId={finalProduct.id}
+										addNewReview={addNewReview}
+									/>
+									<br />
+									</>
+								)}
 										<hr />
 										<ReviewsList reviews={reviews} />
 									</>
