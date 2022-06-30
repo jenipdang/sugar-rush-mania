@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { FormField, Input, Label, Textarea } from '../../styles';
+import { MessageContext } from '../context/message';
 
 const EditProduct = ({ productObj, handleUpdate }) => {
 	
@@ -14,6 +15,7 @@ const EditProduct = ({ productObj, handleUpdate }) => {
 
 	const [isLoading, setIsLoading] = useState(false)
 	const history = useHistory()
+	const { setMessage } = useContext(MessageContext)
 	
 	const handleChange = (e) => {
 		setProduct({
@@ -44,9 +46,11 @@ const EditProduct = ({ productObj, handleUpdate }) => {
 			body: JSON.stringify(updatedProduct)
 		}) .then((r) => {
 			setIsLoading(false)
-			if (r.status === 201) {
+			if (r.ok) {
 				r.json()
-				.then(data => handleUpdate(data))
+				.then((data) => {
+					setMessage({message: "Successfully update the product information", color: "green"})
+					handleUpdate(data)})
 				history.push('/products')
 			} else {
 				r.json().then((err) => alert(err.errors))
