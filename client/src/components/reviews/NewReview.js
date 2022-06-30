@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { FormField, Input, Button, Error } from '../../styles';
+import { FormField, Input, Button, Error, Textarea } from '../../styles';
 import { MessageContext } from '../context/message';
-import ReviewCard from './ReviewCard';
 
 
 const NewReview = ({productId}) => {
@@ -18,6 +17,7 @@ const NewReview = ({productId}) => {
     const [errors, setErrors] = useState([]);
     const history = useHistory()
     const [image, setImage] = useState()
+ 
 
     const handleChange = (e) => {
       setReview({
@@ -63,7 +63,6 @@ const NewReview = ({productId}) => {
     return (
       <>
         <div style={{justifyContent: "center"}}>
-          <h5>Add a review</h5>
           <form>
             <FormField>
               <Input
@@ -75,7 +74,7 @@ const NewReview = ({productId}) => {
               />
             </FormField>
             <FormField>
-              <Input
+              <Textarea
                 type='text'
                 name='content'
                 value={review.content}
@@ -115,6 +114,7 @@ const NewReview = ({productId}) => {
               ))}
             </FormField>
           </form>
+         
         </div>
         </>
     );

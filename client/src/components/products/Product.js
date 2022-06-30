@@ -9,6 +9,7 @@ import EditProduct from '../products/EditProduct';
 import './details.css';
 import { MessageContext } from '../context/message';
 import { UserContext } from '../context/user';
+import { MdOutlineExpandMore, MdOutlineExpandLess } from 'react-icons/md'
 
 const Product = ({ product }) => {
 	const { addItem } = useGlobalContext();
@@ -20,6 +21,7 @@ const Product = ({ product }) => {
 	const history = useHistory();
 	const { setMessage } = useContext(MessageContext);
 	const { user } = useContext(UserContext);
+	const [show, setShow] = useState(true)
 
 	useEffect(() => {
 		if (!product) {
@@ -122,11 +124,17 @@ const Product = ({ product }) => {
 										{!user ? null : (
 									<>
 									<br />
-									<NewReview
-										productId={finalProduct.id}
-										addNewReview={addNewReview}
-									/>
-									<br />
+									<div>
+										<button onClick={() => setShow((show) => !show)} style={{border: "none", padding: "20px", backgroundColor: "none"}}>
+										{show ? <MdOutlineExpandMore /> : <MdOutlineExpandLess />} Add a Review
+										</button>
+									{!show ? (
+										<NewReview
+											productId={finalProduct.id}
+											addNewReview={addNewReview}
+										/>
+									) : null }
+									</div>
 									</>
 								)}
 										<hr />
