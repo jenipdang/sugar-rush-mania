@@ -24,8 +24,6 @@ function App() {
     });
   }, [setUser]);
 
-  // if (!user) return <Login onLogin={setUser} />;
-
   return (
     <>
       <NavBar />

@@ -18,8 +18,8 @@ const Product = ({ product }) => {
 	const { productId } = useParams();
 	const location = useLocation();
 	const history = useHistory();
-	const { setMessage } = useContext(MessageContext)
-	const { user } = useContext(UserContext)
+	const { setMessage } = useContext(MessageContext);
+	const { user } = useContext(UserContext);
 
 	useEffect(() => {
 		if (!product) {
@@ -39,20 +39,19 @@ const Product = ({ product }) => {
 	const finalProduct = product ? product : productObj;
 	if (!finalProduct) return <h1>Loading...</h1>;
 
-
 	const handleDelete = () => {
 		fetch(`/api/products/${productId}`, {
 			method: 'DELETE',
-		}).then((r) => {
-			if( r.ok) {
-				history.push('/products')
-			} else {
-				r.json().then((err) => setMessage(err.errors))
-			}
 		})
-		.catch((err) => setMessage(err.errors))
+			.then((r) => {
+				if (r.ok) {
+					history.push('/products');
+				} else {
+					r.json().then((err) => setMessage(err.errors));
+				}
+			})
+			.catch((err) => setMessage(err.errors));
 	};
-
 
 	const handleUpdate = (updatedProductObj) => {
 		setIsEditing(true);
@@ -84,7 +83,9 @@ const Product = ({ product }) => {
 								</Link>
 								<p className='card-text'>{finalProduct.description}</p>
 								<p>Cateogry: {finalProduct.category}</p>
-								<p><em>Total Ordered: {finalProduct.ordered}</em></p>
+								<p>
+									<em>Total Ordered: {finalProduct.ordered}</em>
+								</p>
 								<hr />
 								<p>Price: ${finalProduct.price}</p>
 								<button
@@ -93,25 +94,28 @@ const Product = ({ product }) => {
 								>
 									Add to Cart
 								</button>
-								{!isEditing &&
-								location.pathname.includes('/product') &&
-								user?.role === 'admin' ? (
+								{user?.role === 'admin' ? (
 									<>
-										<button
-											className='btn btn-dark ms-2'
-											onClick={() => setIsEditing((isEditing) => !isEditing)}
-										>
-											Edit
-										</button>
-										<button
-											className='btn btn-dark ms-2'
-											onClick={handleDelete}
-										>
-											Delete
-										</button>
+										{location.pathname !== '/products' ? (
+											<>
+												<button
+													className='btn btn-dark ms-2'
+													onClick={() =>
+														setIsEditing((isEditing) => !isEditing)
+													}
+												>
+													Edit
+												</button>
+												<button
+													className='btn btn-dark ms-2'
+													onClick={handleDelete}
+												>
+													Delete
+												</button>
+											</>
+										) : null}
 									</>
 								) : null}
-
 								<br />
 								{location.pathname !== '/products' ? (
 									<>
@@ -119,9 +123,9 @@ const Product = ({ product }) => {
 										<NewReview
 											productId={finalProduct.id}
 											addNewReview={addNewReview}
-											/>
+										/>
 										<br />
-										
+
 										<hr />
 										<ReviewsList reviews={reviews} />
 									</>
@@ -131,7 +135,12 @@ const Product = ({ product }) => {
 					</div>
 				</>
 			) : (
-				<EditProduct user={user} id={productId} productObj={finalProduct} handleUpdate={handleUpdate}/>
+				<EditProduct
+					user={user}
+					id={productId}
+					productObj={finalProduct}
+					handleUpdate={handleUpdate}
+				/>
 			)}
 		</div>
 	);
