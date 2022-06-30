@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { LoginForm } from './LoginForm';
 import { motion } from 'framer-motion/dist/framer-motion';
 import { AccountContext } from './accountContext';
 import { SignupForm } from './SignUpForm';
+import { UserContext } from '../context/user';
 
 const AccountContainer = styled.div`
   width: 100%;
@@ -104,9 +105,10 @@ const expandingTransition = {
 	stiffness: 30,
 };
 
-export function Login(props, onLogin) {
+export function Login() {
 	const [isExpanded, setExpanded] = useState(false);
 	const [active, setActive] = useState('signin');
+	const { setUser } = useContext(UserContext)
 
 	const playExpandingAnimation = () => {
 		setExpanded(true);
@@ -158,8 +160,8 @@ export function Login(props, onLogin) {
 					)}
 				</TopContainer>
 				<InnerContainer>
-					{active === 'signin' && <LoginForm onLogin={onLogin} />}
-					{active === 'signup' && <SignupForm onLogin={onLogin} />}
+					{active === 'signin' && <LoginForm setUser={setUser} />}
+					{active === 'signup' && <SignupForm setUser={setUser} />}
 				</InnerContainer>
 			</BoxContainer>
 			</AccountContainer>

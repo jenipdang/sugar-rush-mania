@@ -9,14 +9,18 @@ import {
 } from './styles';
 import { Marginer } from '../accountBox/marginer/marginer';
 import { AccountContext } from './accountContext';
+import { UserContext } from '../context/user';
+import { MessageContext } from '../context/message';
 
-export function SignupForm(props, onLogin) {
+export function SignupForm() {
 	const { switchToSignin } = useContext(AccountContext);
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [passwordConfirmation, setPasswordConfirmation] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const { onLogin } = useContext(UserContext)
+	const { setMessage } = useContext(MessageContext)
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -35,7 +39,10 @@ export function SignupForm(props, onLogin) {
 		}).then((r) => {
 			setIsLoading(false);
 			if (r.ok) {
-				r.json().then((user) => onLogin(user));
+				r.json().then((user) => {
+					onLogin(user)
+					setMessage({message: "Successfully logged out.", color: "green"})
+				});
 			} else {
 				r.json().then((err) => alert(err.errors));
 			}

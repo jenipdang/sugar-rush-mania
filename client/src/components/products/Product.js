@@ -1,12 +1,13 @@
 import { useLocation, useParams, Link, useHistory } from 'react-router-dom';
 // import { Card } from 'semantic-ui-react';
-import { useGlobalContext } from '../data/context';
-import { useEffect, useState } from 'react';
+import { useGlobalContext } from '../context/context';
+import { useContext, useEffect, useState } from 'react';
 import NewReview from '../reviews/NewReview';
 import ReviewsList from '../reviews/ReviewsList';
 import EditProduct from '../products/EditProduct';
 // import './products.css'
 import './details.css';
+import { MessageContext } from '../context/message';
 
 const Product = ({ user, product }) => {
 	const { addItem } = useGlobalContext();
@@ -16,6 +17,7 @@ const Product = ({ user, product }) => {
 	const { productId } = useParams();
 	const location = useLocation();
 	const history = useHistory();
+	const { setMessage } = useContext(MessageContext)
 
 	useEffect(() => {
 		if (!product) {
@@ -36,15 +38,25 @@ const Product = ({ user, product }) => {
 	if (!finalProduct) return <h1>Loading...</h1>;
 
 	const handleDelete = () => {
-		fetch(`/api/prodcuts/${productId}`, {
+		fetch(`/api/products/${productId}`, {
 			method: 'DELETE',
-		}).then(() => history.push('/products'));
+		}).then((r) => {
+			if( r.ok) {
+				history.push('/products')
+			} else {
+				r.json().then((err) => setMessage(err.errors))
+			}
+		})
+		.catch((err) => setMessage(err.errors))
 	};
+
+	// const url = !!product.image_url ? product.image_url : null
 
 	const handleUpdate = (updatedProductObj) => {
 		setIsEditing(true);
 		setProductObj(updatedProductObj);
 	};
+
 
 	return (
 		<div className='details'>

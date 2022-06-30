@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import { Login } from "./accountBox/Login";
@@ -8,13 +8,14 @@ import Footer from "./Footer";
 import Product from "./products/Product";
 import ReviewsList from './reviews/ReviewsList'
 import NewProduct from "./products/NewProduct";
+import Notification from '../pages/Notification'
+import { UserContext } from "./context/user";
 
 
 function App() {
-  const [user, setUser] = useState(null);
+  const { user, setUser, onLogin } = useContext(UserContext)
 
   useEffect(() => {
-    // auto-login
     fetch("/api/me").then((r) => {
       if (r.ok) {
         r.json().then((data) => setUser(data));
@@ -22,11 +23,12 @@ function App() {
     });
   }, []);
 
-  if (!user) return <Login onLogin={setUser} />;
+  // if (!user) return <Login onLogin={setUser} />;
 
   return (
     <>
-      <NavBar user={user} setUser={setUser} />
+      <NavBar />
+      <Notification />
       <main>
         <Switch>
           <Route path="/products/new">
@@ -44,9 +46,9 @@ function App() {
           <Route path="/about">
             <About />
           </Route>
-          {/* <Route path="/account">
-            <AccountBox />
-          </Route> */}
+          <Route path="/account">
+            <Login onLogin={onLogin} />
+          </Route>
         </Switch>
       </main>
       <Footer />
