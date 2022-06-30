@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { FormField, Input, Label, Textarea } from '../../styles';
+import { UserContext } from '../context/user';
 
-const NewProduct = ({ user }) => {
+const NewProduct = () => {
 	const [product, setProduct] = useState();
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
+	const { user } = useContext(UserContext)
 
 	const handleSubmit = (e) => {
 		e.preventDefault();

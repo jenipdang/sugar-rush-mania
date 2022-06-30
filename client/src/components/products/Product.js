@@ -8,8 +8,9 @@ import EditProduct from '../products/EditProduct';
 // import './products.css'
 import './details.css';
 import { MessageContext } from '../context/message';
+import { UserContext } from '../context/user';
 
-const Product = ({ user, product }) => {
+const Product = ({ product }) => {
 	const { addItem } = useGlobalContext();
 	const [productObj, setProductObj] = useState(null);
 	const [reviews, setReviews] = useState([]);
@@ -18,6 +19,7 @@ const Product = ({ user, product }) => {
 	const location = useLocation();
 	const history = useHistory();
 	const { setMessage } = useContext(MessageContext)
+	const { user } = useContext(UserContext)
 
 	useEffect(() => {
 		if (!product) {

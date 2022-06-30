@@ -14,7 +14,7 @@ import Review from "./reviews/ReviewCard";
 
 
 function App() {
-  const { user, setUser, onLogin } = useContext(UserContext)
+  const { setUser} = useContext(UserContext)
 
   useEffect(() => {
     fetch("/api/me").then((r) => {
@@ -33,25 +33,25 @@ function App() {
       <main>
         <Switch>
           <Route path="/products/new">
-            <NewProduct user={user}/>
+            <NewProduct />
           </Route>
           <Route path="/products/:id/reviews">
-            <ReviewsList user={user}/>
+            <ReviewsList />
           </Route>
           <Route path="/reviews/:reviewId">
-            <Review user={user}/>
+            <Review />
           </Route>
           <Route path="/products/:productId">
-            <Product user={user}/>
+            <Product />
           </Route>
           <Route path="/products">
-            <ProductContainer user={user}/>
+            <ProductContainer />
           </Route>
           <Route path="/about">
             <About />
           </Route>
           <Route path="/account">
-            <Login onLogin={onLogin} />
+            <Login />
           </Route>
         </Switch>
       </main>
