@@ -2,7 +2,7 @@ class Api::ReviewsController < ApplicationController
     skip_before_action :authorize, only: [:index, :show]
     before_action :find_review, only: [:show, :update, :destroy]
 
-    #GET "/reviews" or GET "/products/:product_id/review"
+    #GET "/reviews" or GET "/products/:product_id/reviews"
     def index 
         if params[:product_id]
             product = Product.find(params[:product_id])
@@ -29,7 +29,7 @@ class Api::ReviewsController < ApplicationController
     #PATCH "/reviews/:id"
     def update 
         @review&.update!(review_params)
-        render json: @review, status: :accepted
+        render json: @review, status: :ok
     end
 
     #DELETE "/reviews/:id"

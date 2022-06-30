@@ -38,13 +38,13 @@ const EditProduct = ({ productObj, handleUpdate }) => {
 
 		setIsLoading(true)
 
-		fetch(`/api/products/${productObj.id}`, {
+		fetch(`/api/products/${productObj.id}`,{
 			method: "PATCH",
 			headers: {
 				'Content-Type': "application/json",
 			},
 			body: JSON.stringify(updatedProduct)
-		}) .then((r) => {
+		}).then((r) => {
 			setIsLoading(false)
 			if (r.ok) {
 				r.json()

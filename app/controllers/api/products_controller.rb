@@ -24,7 +24,7 @@ class Api::ProductsController < ApplicationController
   #PATCH "/products/:id"
   def update
       @product&.update!(product_params)
-      render json: serialized_product, status: :accepted
+      render json: serialized_product, status: :ok
   end
 
   #DELETE "/products/:id"

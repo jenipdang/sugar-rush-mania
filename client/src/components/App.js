@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect} from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import { Login } from "./accountBox/Login";
@@ -10,6 +10,7 @@ import ReviewsList from './reviews/ReviewsList'
 import NewProduct from "./products/NewProduct";
 import Notification from '../pages/Notification'
 import { UserContext } from "./context/user";
+import Review from "./reviews/ReviewCard";
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
         r.json().then((data) => setUser(data));
       }
     });
-  }, []);
+  }, [setUser]);
 
   // if (!user) return <Login onLogin={setUser} />;
 
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route path="/products/:id/reviews">
             <ReviewsList user={user}/>
+          </Route>
+          <Route path="/reviews/:reviewId">
+            <Review user={user}/>
           </Route>
           <Route path="/products/:productId">
             <Product user={user}/>

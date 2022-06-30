@@ -37,6 +37,7 @@ const Product = ({ user, product }) => {
 	const finalProduct = product ? product : productObj;
 	if (!finalProduct) return <h1>Loading...</h1>;
 
+
 	const handleDelete = () => {
 		fetch(`/api/products/${productId}`, {
 			method: 'DELETE',
@@ -50,13 +51,11 @@ const Product = ({ user, product }) => {
 		.catch((err) => setMessage(err.errors))
 	};
 
-	// const url = !!product.image_url ? product.image_url : null
 
 	const handleUpdate = (updatedProductObj) => {
 		setIsEditing(true);
 		setProductObj(updatedProductObj);
 	};
-
 
 	return (
 		<div className='details'>
