@@ -1,5 +1,5 @@
 import {useState, useEffect, useContext} from 'react'
-import {MessageContext} from '../components/context/message'
+import { MessageContext } from '../context/message';
 
 const Notification = () => {
     const [vanishMode, setVanishMode] = useState(false);

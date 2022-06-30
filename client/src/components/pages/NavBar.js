@@ -3,8 +3,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { MessageContext } from './context/message';
-import { UserContext } from './context/user';
+import { MessageContext } from '../context/message'
+import { UserContext } from '../context/user';
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 
 

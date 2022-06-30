@@ -1,16 +1,16 @@
 import React, { useContext, useEffect} from "react";
 import { Switch, Route } from "react-router-dom";
-import NavBar from "./NavBar";
+import NavBar from "./pages/NavBar";
 import { Login } from "./accountBox/Login";
 import ProductContainer from './products/ProductContainer'
-import About from "../pages/About";
-import Footer from "./Footer";
+import About from "./pages/About";
+import Footer from "./pages/Footer";
 import Product from "./products/Product";
 import ReviewsList from './reviews/ReviewsList'
 import NewProduct from "./products/NewProduct";
-import Notification from '../pages/Notification'
-import { UserContext } from "./context/user";
+import Notification from './pages/Notification'
 import Review from "./reviews/ReviewCard";
+import { UserContext } from "./context/user";
 
 
 function App() {
