@@ -9,8 +9,8 @@ import { AiFillEdit } from 'react-icons/ai'
 import { MdDeleteForever } from 'react-icons/md'
 
 const ReviewCard = ({ review }) => {
-	const [reviewObj, setReviewObj] = useState([]);
-	const { reviewId } = useParams;
+	const [reviewObj, setReviewObj] = useState(null);
+	const { reviewId } = useParams();
 	const history = useHistory();
 	const location = useLocation();
 	const [isEditing, setIsEditing] = useState(false);
@@ -42,12 +42,12 @@ const ReviewCard = ({ review }) => {
 		<div className='container'>
 			{!isEditing ? (
 				<>
+				<div className='rev-card' style={{textAlign: 'center', padding: '10px', margin: '50px'}} key={finalReview.id}>
                 <Link style={{
-							textDecoration: 'none',
-							color: 'red',
-							// textTransform: 'uppercase',
-						}}
-						to={`/reviews/${finalReview.id}`}>
+					textDecoration: 'none',
+					color: 'red',
+				}}
+				to={`/reviews/${finalReview.id}`}>
 					<h5>
 						{finalReview.title} - rating: {finalReview.rating} of 5
 					</h5>
@@ -59,8 +59,8 @@ const ReviewCard = ({ review }) => {
 						- {finalReview.post_by} <MdOutlineVerified /> -
 					</p>
                 {
-                    (!isEditing && location.pathname.includes("/reviews")) && (user.username === finalReview.post_by || user?.role === "admin") ? (
-                        <div className='actions'>
+					(!isEditing && location.pathname.includes("/reviews")) && (user.post_by === finalReview.post_by || user?.role === "admin") ? (
+						<div className='actions'>
                             <button onClick={() => setIsEditing((isEditing) => !isEditing)} style={{border: "none", backgroundColor: "white"}}>
                                 <span aria-label='edit'>
                                 <AiFillEdit />
@@ -73,7 +73,8 @@ const ReviewCard = ({ review }) => {
                             </button>
                         </div>
                         ) : null 
-                }
+					}
+					</div>
 				</>
 			) : <EditReview handleUpdate={handleUpdate} reviewObj={finalReview} id={reviewId} />}
 		</div>

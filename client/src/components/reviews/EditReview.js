@@ -31,26 +31,25 @@ const EditReview = ({reviewObj, handleUpdate}) => {
       e.preventDefault()
  
       fetch (`/api/reviews/${reviewObj.id}`, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(updatedReview)
       })
-      .then(r => {
+      .then((r) => {
         setIsLoading(false);
-        if (r.status === 201) {
+        if (r.ok) {
           r.json()
-          .then(editedReview => {
-            setReview(handleUpdate(editedReview))
+          .then((data) => {
             setMessage({message: "Review was successfully modifed", color: "green"})
-            history.push('/products')
-          })
+            handleUpdate(data)})
+          history.push('/products')
         } else {
 					r.json().then((err) => setErrors(err.errors));
 				}
 			})
-			.catch((err) => setErrors(err.message));
+			.catch((err) => setErrors(err.errors));
     }
     
 
