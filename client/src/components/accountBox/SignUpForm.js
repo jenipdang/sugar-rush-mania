@@ -11,6 +11,7 @@ import { Marginer } from '../accountBox/marginer/marginer';
 import { AccountContext } from './accountContext';
 import { UserContext } from '../context/user';
 import { MessageContext } from '../context/message';
+import { FormField, Error } from '../../styles';
 
 export function SignupForm() {
 	const { switchToSignin } = useContext(AccountContext);
@@ -21,6 +22,7 @@ export function SignupForm() {
 	const [isLoading, setIsLoading] = useState(false);
 	const { onLogin } = useContext(UserContext)
 	const { setMessage } = useContext(MessageContext)
+	const [errors, setErrors] = useState([]);
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -44,7 +46,7 @@ export function SignupForm() {
 					setMessage({message: "Successfully logged out.", color: "green"})
 				});
 			} else {
-				r.json().then((err) => alert(err.errors));
+				r.json().then((err) => setErrors(err.errors));
 			}
 		});
 	}
@@ -82,6 +84,11 @@ export function SignupForm() {
 				<SubmitButton type='submit'>
 					{isLoading ? 'Loading' : 'Signup'}
 				</SubmitButton>
+				<FormField>
+              {errors?.map((err) => (
+                <Error key={err}>{err}</Error>
+              ))}
+            </FormField>
 				<Marginer direction='vertical' margin='1em' />
 				<MutedLink>
 					Already have an account?

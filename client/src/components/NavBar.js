@@ -7,6 +7,7 @@ import { MessageContext } from './context/message';
 import { UserContext } from './context/user';
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 
+
 function NavBar() {
   const { user, setUser } = useContext(UserContext)
   const { setMessage } = useContext(MessageContext)
@@ -21,10 +22,10 @@ function NavBar() {
   }
 
   return (
-    <Navbar style={{ background: "linear-gradient(to right, #ddd6f3, #faaca8)"}} expand="lg">
+    <Navbar className='navbar sticky-top' style={{ background: "linear-gradient(to right, #ddd6f3, #faaca8)"}} expand="lg">
     <Container fluid>
       <Navbar.Brand>
-        {/* <object type='image/svg+xml' data='SugarRushMania.svg' alt="Sugar Rush Mania">Sugar Rush Mania</object> */}
+        {/* <img src={window.location.orgin + 'public/SRMlogo.png'} alt="Sugar Rush Mania" /> */}
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">

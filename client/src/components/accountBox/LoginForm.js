@@ -12,6 +12,7 @@ import { AccountContext } from './accountContext';
 import { useHistory } from 'react-router-dom';
 import { MessageContext } from '../context/message';
 import { UserContext } from '../context/user';
+import { FormField, Error } from '../../styles';
 
 export function LoginForm() {
 	const { switchToSignup } = useContext(AccountContext);
@@ -20,6 +21,7 @@ export function LoginForm() {
 	const [isLoading, setIsLoading] = useState(false);
 	const history = useHistory();
 	const { setMessage } = useContext(MessageContext)
+	const [errors, setErrors] = useState([]);
 	const { onLogin } = useContext(UserContext)
 
 	function handleSubmit(e) {
@@ -40,8 +42,7 @@ export function LoginForm() {
 					history.push('/products');
 				});
 			} else {
-				r.json().then((err) => alert(err.errors))
-				// r.json().then((err) => setMessage({message: err.errors, color: "red"}));
+				r.json().then((err) => setErrors(err.errors))
 			}
 		});
 	}
@@ -70,6 +71,11 @@ export function LoginForm() {
 			<SubmitButton type='submit'>
 				{isLoading ? 'Loading' : 'Signin'}
 			</SubmitButton>
+			<FormField>
+              {errors?.map((err) => (
+                <Error key={err}>{err}</Error>
+              ))}
+            </FormField>
 			<Marginer direction='vertical' margin='1em' />
 			<MutedLink >
 				Don't have an accoun?{' '}

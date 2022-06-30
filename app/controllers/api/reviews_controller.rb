@@ -21,7 +21,7 @@ class Api::ReviewsController < ApplicationController
     def create 
         if params[:product_id]   
         product = Product.find(params[:product_id])
-        @review = product.reviews.create!(review_params)
+        @review = current_user.reviews.create!(product: product, title: params[:title], content: params[:content], rating: params[:rating])
         render json: serialized_review, status: :created
         end
     end
@@ -52,6 +52,6 @@ class Api::ReviewsController < ApplicationController
     end
 
     def review_params
-        params.permit(:rating, :content, :product_id, :user_id)
+        params.permit(:title, :rating, :content, :product_id, :user_id)
     end
 end
