@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import {useState} from 'react'
 import { useParams, useLocation, useHistory } from 'react-router-dom'
 import { UserContext } from '../context/user'
+import { MdOutlineVerified } from 'react-icons/md'
 
 const ReviewCard = ({review}) => {
     const [reviewObj, setReviewObj] = useState([])
@@ -36,9 +37,9 @@ const ReviewCard = ({review}) => {
 
   return (
     <div className='container'>
-        <h5>{finalReview.title} || rating: {finalReview.rating} of 5</h5>
+        <h5>{finalReview.title} - rating: {finalReview.rating} of 5</h5>
         <p><em>{finalReview.content}</em></p>
-        <p>{finalReview.post_by}</p>
+        <p>- {finalReview.post_by} <MdOutlineVerified /> -</p>
     </div>
   )
 }

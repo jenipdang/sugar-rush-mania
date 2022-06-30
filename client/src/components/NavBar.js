@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { MessageContext } from './context/message';
 import { UserContext } from './context/user';
+import { AiOutlineShoppingCart } from 'react-icons/ai'
 
 function NavBar() {
   const { user, setUser } = useContext(UserContext)
@@ -40,6 +41,7 @@ function NavBar() {
           </Nav.Link> */}
         </Nav>
         <Nav className="d-flex" style={{ paddingRight: '30px'}}>
+          <Nav.Link href='/cart'><AiOutlineShoppingCart style={{fontSize: '23px'}} /></Nav.Link>
         {!user ? (
             <Nav.Link href="/account">Sign In</Nav.Link>
           ): null}

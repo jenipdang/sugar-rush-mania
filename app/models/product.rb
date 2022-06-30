@@ -10,4 +10,9 @@ class Product < ApplicationRecord
     def image_url
         Rails.application.routes.url_helpers.url_for(image) if image.attached? 
     end
+
+    def ordered
+        self.orders.length
+    end
+
 end
