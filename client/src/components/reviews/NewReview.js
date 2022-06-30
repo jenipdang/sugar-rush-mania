@@ -24,9 +24,6 @@ const NewReview = ({productId}) => {
 
     const handleSubmit = (e) => {
       e.preventDefault()
-      if ([review.title, review.rating, review.content].some(val => val.trim() === "")) {
-        alert("Content cannot be empty!")
-      }
 
       fetch (`/api/products/${productId}/reviews`, {
         method: 'POST',
@@ -84,6 +81,9 @@ const NewReview = ({productId}) => {
                 placeholder='Rating from 1 to 5 (5 is the higest)'
               />
             </FormField>
+            <FormField>
+						  <Input type='file' name='image' id='image' />
+					  </FormField>
             <FormField>
               <Button onClick={handleSubmit} color='primary' type='submit'>
                 {isLoading ? 'Loading...' : 'Submit'}

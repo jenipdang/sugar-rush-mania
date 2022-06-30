@@ -48,7 +48,7 @@ class Api::ReviewsController < ApplicationController
     end
 
     def serialized_review
-        @review.to_json(include: :product)
+        @review.to_json
     end
 
     def review_params
