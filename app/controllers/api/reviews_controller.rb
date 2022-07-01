@@ -14,7 +14,7 @@ class Api::ReviewsController < ApplicationController
 
     #GET "/reviews/:id"
     def show 
-        render json: serialized_review
+        render json: @review
     end
 
     #POST "/reviews" or "/products/:product_id/reviews"
@@ -24,7 +24,7 @@ class Api::ReviewsController < ApplicationController
         params[:event_id]   
         event = Event.find(params[:event_id])
         @review = current_user.reviews.create!(product: product, event: event, title: params[:title], content: params[:content], rating: params[:rating], image: params[:image])
-        render json: serialized_review, status: :created
+        render json: @review, status: :created
         
     end
 
@@ -47,10 +47,6 @@ class Api::ReviewsController < ApplicationController
 
     def find_review
         @review = Review.find(params[:id])
-    end
-
-    def serialized_review
-        @review.to_json
     end
 
     def review_params

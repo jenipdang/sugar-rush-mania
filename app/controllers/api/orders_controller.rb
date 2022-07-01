@@ -16,14 +16,14 @@ class Api::OrdersController < ApplicationController
 
     #GET "/orders/:id"
     def show 
-        render json: serialized_order
+        render json: @order
     end
 
 
     #PATCH "/orders/:id"
     def update
         @order&.update!(order_params)
-        render json: serialized_order
+        render json: @order
     end
 
     #DELETE "/orders/:id"
@@ -39,9 +39,6 @@ class Api::OrdersController < ApplicationController
         @order = Order.find(params[:id])
     end
 
-    def serialized_order
-        @order.to_json(include: :event)
-    end
 
     def order_params
         params.require(:order).permit(:event_id, :product_id, :quantity)

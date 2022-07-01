@@ -1,7 +1,8 @@
 import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { FormField, Input, Label, Textarea } from '../../styles';
+import { FormField, Input, Label, Textarea, Error } from '../../styles';
+import { MessageContext } from '../context/message';
 import { UserContext } from '../context/user';
 
 const NewProduct = () => {
@@ -9,6 +10,8 @@ const NewProduct = () => {
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
 	const { user } = useContext(UserContext)
+	const [errors, setErrors] = useState([])
+	const { setMessage } = useContext(MessageContext)
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -23,17 +26,28 @@ const NewProduct = () => {
 		formData.append('user[id]', user.id)
 		submitToAPI(formData);
 	};
+	
 	const submitToAPI = (formData) => {
 		fetch('/api/products', {
 			method: 'POST',
 			body: formData,
 		})
-			.then((r) => r.json())
-			.then((data) => {
-				setProduct(orgData => orgData.concat(data));
+		.then((r) => {
+			setLoading(false);
+			if (r.ok) {
+				r.json().then((data) => {
+					setMessage({
+						message: 'Successfully update the product information',
+						color: 'green',
+					});
+					setProduct(data);
+				});
 				history.push('/products');
-			})
-			.catch((err) => alert(err.errors));
+			} else {
+				r.json().then((err) => setErrors(err.errors));
+			}
+		})
+		.catch((err) => setErrors(err.errors));
 	};
 
 	return (
@@ -60,6 +74,11 @@ const NewProduct = () => {
 					<FormField>
 						<Label htmlFor='image'>Image</Label>
 						<Input type='file' name='image' id='image' />
+					</FormField>
+					<FormField>
+						{errors?.map((err) => (
+							<Error key={err}>{err}</Error>
+						))}
 					</FormField>
 					<FormField>
 						<button type='submit'>{loading ? "Loading..." : "Create"}</button>

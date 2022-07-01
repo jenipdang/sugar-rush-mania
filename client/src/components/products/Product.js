@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import NewReview from '../reviews/NewReview';
 import ReviewsList from '../reviews/ReviewsList';
 import EditProduct from '../products/EditProduct';
-// import './products.css'
+import './products.css'
 import './details.css';
 import { MessageContext } from '../context/message';
 import { UserContext } from '../context/user';
@@ -47,6 +47,7 @@ const Product = ({ product }) => {
 		})
 			.then((r) => {
 				if (r.ok) {
+					setMessage({message: "Successfully deleted the product.", color: "green"})
 					history.push('/products');
 				} else {
 					r.json().then((err) => setMessage(err.errors));
@@ -61,7 +62,7 @@ const Product = ({ product }) => {
 	};
 
 	return (
-		<div className='details'>
+		<div className='products details'>
 			{!isEditing ? (
 				<>
 					<div className='col-md-4 mb-4' key={finalProduct.id}>
@@ -125,7 +126,7 @@ const Product = ({ product }) => {
 									<>
 									<br />
 									<div>
-										<button onClick={() => setShow((show) => !show)} style={{border: "none", padding: "20px", backgroundColor: "none"}}>
+										<button onClick={() => setShow((show) => !show)} style={{border: "none", backgroundColor: "white"}}>
 										{show ? <MdOutlineExpandMore /> : <MdOutlineExpandLess />} Add a Review
 										</button>
 									{!show ? (

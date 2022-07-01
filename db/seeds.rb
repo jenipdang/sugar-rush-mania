@@ -1,3 +1,10 @@
+puts "🌱 Deleting users, products, events, orders and reviews..."
+User.delete_all
+Product.delete_all
+Event.delete_all
+Order.delete_all
+Review.delete_all
+
 puts "🌱 Creating users..."
 racheal = User.create(username: "racheal", email: "racheal@yahoo.com", password: "1234567ra")
 kim = User.create(username: "kimdang", email: "kimlee@yahoo.com", password: "1234567kd")
@@ -35,6 +42,6 @@ Order.create(event_id: 3, product_id: 3, quantity: 50)
 
 
 puts "🌱 Creating reviews..."
-Review.create!(event_id: 1, user_id: 2, product_id: 3, title: "Best Desserts in Town!", content: "The dessert table setup was so pretty! Love the result of the theme cupcake! Would definite recommend this to all my friends and family.", rating: "5")
+Review.create!(event_id: 1, user_id: 2, product_id: 5, title: "Best Desserts in Town!", content: "The dessert table setup was so pretty! Love the taste, not too sweet...just perfect! Would definite recommend this to all my friends and family.", rating: "5").image.attach(io: File.open('/Users/jenidang/Development/code/Phase5/SRM_Images/cb_table.png'), filename: 'cb_table.png')
 
 puts "🌱 Seeding done!"

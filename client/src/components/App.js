@@ -14,7 +14,7 @@ import { UserContext } from "./context/user";
 
 
 function App() {
-  const { setUser} = useContext(UserContext)
+  const { setUser } = useContext(UserContext)
 
   useEffect(() => {
     fetch("/api/me").then((r) => {

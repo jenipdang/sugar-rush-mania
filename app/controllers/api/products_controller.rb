@@ -18,13 +18,13 @@ class Api::ProductsController < ApplicationController
 
   #GET "/products/:id"
   def show 
-      render json: serialized_product
+      render json: @product
   end
 
   #PATCH "/products/:id"
   def update
       @product&.update!(product_params)
-      render json: serialized_product, status: :ok
+      render json: @product, status: :ok
   end
 
   #DELETE "/products/:id"
@@ -42,10 +42,6 @@ class Api::ProductsController < ApplicationController
 
   def find_product
     @product = Product.find(params[:id])
-  end
-
-  def serialized_product
-    @product.to_json
   end
 
   def product_params

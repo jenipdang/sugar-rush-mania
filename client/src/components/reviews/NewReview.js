@@ -10,7 +10,7 @@ const NewReview = ({productId}) => {
       content: "",
       rating: "",
       event_id: "",
-      image_url: ""
+      image: ""
     })
     const { setMessage } = useContext(MessageContext)
     const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +48,7 @@ const NewReview = ({productId}) => {
         if (r.status === 201) {
           r.json()
           .then(review => {
-            setReview({title: review.title, content: review.content, rating: review.rating, event_id: review.event_id, image_url: review.image})
+            setReview({title: review.title, content: review.content, rating: review.rating, event_id: review.event_id, image: review.image})
             setMessage({message: "Review successfully added", color: "green"})
             history.push('/products')
           })

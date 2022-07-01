@@ -17,13 +17,13 @@ before_action :check_admin, only: [:update, :destroy]
   def create
       @event = current_user.events.create!(event_params)
       Order.create(event: @event, product: product, quantity: params[:quantity])
-      render json: serialized_event, status: :created
+      render json: @event, status: :created
   end
 
   #PATCH "/events/:id"
   def update
     @event&.update!(event_params)
-    render json: serialized_event, status: :created
+    render json: @event, status: :created
   end
 
   #DELETE "/event"
@@ -37,10 +37,6 @@ before_action :check_admin, only: [:update, :destroy]
 
     def find_event
       @event = Event.find(params[:id])
-    end
-
-    def serialized_event
-        @event.to_json(include: [:products, :orders])
     end
 
     def event_params
