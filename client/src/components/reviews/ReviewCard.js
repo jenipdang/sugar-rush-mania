@@ -65,7 +65,7 @@ const ReviewCard = ({ review }) => {
 					<p>
 						<em>{finalReview.content}</em>
 					</p>
-					<img src={finalReview.image_url} />
+					<img src={finalReview.image_url} alt={finalReview.title} />
 					<p>
 						- {finalReview.post_by} <MdOutlineVerified /> -
 					</p>

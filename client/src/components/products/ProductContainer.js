@@ -13,7 +13,6 @@ const ProductContainer = () => {
         .catch((err) => alert(err.errors))
     }, [])
 
-
   return (
     <div className='container'>
         <ProductList products={products} />

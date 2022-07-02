@@ -50,7 +50,9 @@ function NavBar() {
           <NavDropdown title={user.username} id="navbarScrollingDropdown" style={{marginRight: '40px'}}>
             <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
             {user.role === "admin" ? (
+              <>
               <NavDropdown.Item href="/products/new">New Product</NavDropdown.Item>
+              </>
             ) : null }
             <NavDropdown.Item onClick={handleLogoutClick}>
               Log Out

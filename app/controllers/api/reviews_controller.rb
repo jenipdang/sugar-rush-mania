@@ -23,7 +23,7 @@ class Api::ReviewsController < ApplicationController
         product = Product.find(params[:product_id])
         params[:event_id]   
         event = Event.find(params[:event_id])
-        @review = current_user.reviews.create!(product: product, event: event, title: params[:title], content: params[:content], rating: params[:rating], image: params[:image])
+        @review = current_user.reviews.create!(product: product, event: event, title: params[:title], content: params[:content], rating: params[:rating])
         render json: @review, status: :created
         
     end

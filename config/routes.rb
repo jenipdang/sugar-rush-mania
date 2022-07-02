@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     end
     
     resources :users, only: [:show]
-
+    get "/most-popular", to: "products#most_popular"
     post "/signup", to: "users#create"
     get "/me", to: "users#show"
     post "/login", to: "sessions#create"

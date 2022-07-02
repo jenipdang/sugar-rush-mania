@@ -9,17 +9,22 @@ class Api::ProductsController < ApplicationController
         render json: Product.all
   end
 
+  #GET "/products/:id"
+  def show 
+      render json: @product
+  end
+
+  #GET "/most-popular"
+  def most_popular
+    render json: Product.most_popular
+  end
+
   #POST "/products"
   def create
     product = current_user.posted_products.create!(product_params)
     render json: product, status: :created
   end
 
-
-  #GET "/products/:id"
-  def show 
-      render json: @product
-  end
 
   #PATCH "/products/:id"
   def update

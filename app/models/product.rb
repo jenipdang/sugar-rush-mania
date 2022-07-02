@@ -15,4 +15,9 @@ class Product < ApplicationRecord
         self.orders.length
     end
 
+    def self.most_popular
+        self.preload(:orders).max_by{|p| p.orders.count}
+    end
+
+
 end

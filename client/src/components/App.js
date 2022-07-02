@@ -11,6 +11,7 @@ import NewProduct from "./products/NewProduct";
 import Notification from './pages/Notification'
 import Review from "./reviews/ReviewCard";
 import { UserContext } from "./context/user";
+import Profile from "./pages/Profile";
 
 
 function App() {
@@ -28,8 +29,10 @@ function App() {
     <>
       <NavBar />
       <Notification />
-      <main>
         <Switch>
+          <Route path="/profile">
+            <Profile />
+          </Route>
           <Route path="/products/new">
             <NewProduct />
           </Route>
@@ -52,7 +55,6 @@ function App() {
             <Login />
           </Route>
         </Switch>
-      </main>
       <Footer />
     </>
   );
