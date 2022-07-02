@@ -5,10 +5,12 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { useState } from 'react';
+import { useContext } from 'react';
+import { UserContext } from '../context/user';
 
-const Profile = ({ user }) => {
-	const [sortEvent, setSortEvent] = useState(false);
-	const [sortVenue, setSortVenue] = useState(false);
+const Profile = () => {
+	const [sort, setSort] = useState(false);
+	const { user } = useContext(UserContext);
 
 	return (
 		<>
@@ -22,49 +24,56 @@ const Profile = ({ user }) => {
 							<span className='userShowTitle'>Account Details</span>
 							<div className='userShowInfo'>
 								<PermIdentityIcon className='userShowIcon' />
-								<span className='userShowInfoTitle'>{user.username}</span>
+								<span className='userShowInfoTitle'>{user?.username}</span>
 							</div>
 							<span className='userShowTitle'>Active Since</span>
 							<div className='userShowInfo'>
 								<CalendarTodayIcon className='userShowIcon' />
 								<span className='userShowInfoTitle'>
-									{user.created_at
-										? dateformat(user.created_at, 'dddd, mmmm dS yyyy')
+									{user?.created_at
+										? dateformat(user?.created_at, 'dddd, mmmm dS yyyy')
 										: ''}
 								</span>
 							</div>
 							<span className='userShowTitle'>Contact Details</span>
 							<div className='userShowInfo'>
 								<MailOutlineIcon className='userShowIcon' />
-								<span className='userShowInfoTitle'>{user.email}</span>
+								<span className='userShowInfoTitle'>{user?.email}</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div className='user'>
-				{user.role === 'admin' ? (
+				{user?.role === 'admin' ? (
 					<div className='userShow'>
-						<span className='userShowTitle'>Posted Events</span>
+						<span className='userShowTitle'>Posted Products</span>
 						<button
 							className='btn btn-outline-secondary d-grid'
-							onClick={() => setSortEvent((bool) => !bool)}
+							onClick={() => setSort((bool) => !bool)}
 						>
-							{!sortEvent ? 'Sort A-Z' : 'Unsort'}
+							{!sort ? 'Sort A-Z' : 'Unsort'}
 						</button>
 						<ul>
-							{!sortEvent ? (
+							{!sort ? (
 								<>
 									{' '}
-									{user.created_events?.map((created_event) => (
-										<li key={created_event.id}>
+									{user.posted_products?.map((posted_product) => (
+										<li key={posted_product.id}>
 											<p>
 												<Link
 													style={{ textDecoration: 'none', color: 'black' }}
-													to={`/events/${created_event.id}`}
+													to={`/products/${posted_product.id}`}
 													className='userShowInfoTitle'
 												>
-													{created_event.name}
+													{posted_product.name} || ordered:{' '}
+													{posted_product.ordered} || current selling price: $
+													{posted_product.price} ||{' '}
+													<img
+														style={{ width: '50px', height: '50px' }}
+														src={posted_product.image_url} 
+														/>{' '}
+													|| last update: {dateformat(posted_product?.updated_at, 'dddd, mmmm dS yyyy')}
 												</Link>
 											</p>
 										</li>
@@ -72,15 +81,15 @@ const Profile = ({ user }) => {
 								</>
 							) : (
 								<>
-									{user.sort_event?.map((event_sorted) => (
-										<li key={event_sorted.id}>
+									{user.sort_products?.map((product_sorted) => (
+										<li key={product_sorted.id}>
 											<p>
 												<Link
 													style={{ textDecoration: 'none', color: 'black' }}
-													to={`/events/${event_sorted.id}`}
+													to={`/events/${product_sorted.id}`}
 													className='userShowInfoTitle'
 												>
-													{event_sorted.name}
+													{product_sorted.name}
 												</Link>
 											</p>
 										</li>
@@ -90,31 +99,31 @@ const Profile = ({ user }) => {
 						</ul>
 					</div>
 				) : null}
-				</div>
-				<div className='user'>
-				{user.role === 'admin' ? (
+			</div>
+			<div className='user'>
+				{user?.role === 'admin' ? (
 					<div className='userShow'>
-						<span className='userShowTitle'>Posted Venues</span>
+						<span className='userShowTitle'>Past Orders</span>
 						<button
-							className='btn btn-outline-secondary d-grid'
-							onClick={() => setSortVenue((bool) => !bool)}
+							className='btn btn-outline-secondary d-flex'
+							onClick={() => setSort((bool) => !bool)}
 						>
-							{!sortVenue ? 'Sort A-Z' : 'Unsort'}
+							{!sort ? 'Sort A-Z' : 'Unsort'}
 						</button>
 						<ul>
-							{!sortVenue ? (
+							{!sort ? (
 								<>
-									{user.created_venues?.map((created_venue) => (
-										<li key={created_venue.id}>
-											<p className='userShowInfoTitle'>{created_venue.name}</p>
+									{user.created_orders?.map((created_order) => (
+										<li key={created_order.id}>
+											<p className='userShowInfoTitle'>{created_order.name}</p>
 										</li>
 									))}
 								</>
 							) : (
 								<>
-									{user.sort_venue?.map((venue_sort) => (
-										<li key={venue_sort.id}>
-											<p className='userShowInfoTitle'>{venue_sort.name}</p>
+									{user.sort_events?.map((order_sort) => (
+										<li key={order_sort.id}>
+											<p className='userShowInfoTitle'>{order_sort.name}</p>
 										</li>
 									))}
 								</>
@@ -122,24 +131,56 @@ const Profile = ({ user }) => {
 						</ul>
 					</div>
 				) : null}
-				</div>
-				<div className='user'>
+			</div>
+			<div className='user'>
+				{user?.role === 'admin' ? (
+					<div className='userShow'>
+						<span className='userShowTitle'>Hosted Events</span>
+						<button
+							className='btn btn-outline-secondary d-flex'
+							onClick={() => setSort((bool) => !bool)}
+						>
+							{!sort ? 'Sort A-Z' : 'Unsort'}
+						</button>
+						<ul>
+							{!sort ? (
+								<>
+									{user.created_events?.map((created_event) => (
+										<li key={created_event.id}>
+											<p className='userShowInfoTitle'>{created_event.name}</p>
+										</li>
+									))}
+								</>
+							) : (
+								<>
+									{user.sort_events?.map((event_sort) => (
+										<li key={event_sort.id}>
+											<p className='userShowInfoTitle'>{event_sort.name}</p>
+										</li>
+									))}
+								</>
+							)}
+						</ul>
+					</div>
+				) : null}
+			</div>
+			<div className='user'>
 				<div className='userShow'>
 					<span className='userShowTitle'>
-						Comments History || Total Commented Events:{' '}
-						{user.total_commented_events}
+						Reviews History || Total Products Reviewed{' '}
+						{/* {user.total_commented_products} */}
 					</span>
 					<ul>
-						{user.comments?.map((comment) => (
-							<li key={comment.id}>
+						{user?.reviews.map((review) => (
+							<li key={review.id}>
 								<Link
 									style={{ textDecoration: 'none', color: 'black' }}
-									to={`/comments/${comment.id}`}
+									to={`/reviews/${review.id}`}
 									className='userShowInfoTitle'
 								>
-									{comment.content} || {comment.event_name} ||{' '}
-									{comment.created_at
-										? dateformat(user.created_at, 'dddd, mmmm dS yyyy')
+									{review.content} || {review.product_name} ||{' '}
+									{review.created_at
+										? dateformat(user?.created_at, 'dddd, mmmm dS yyyy')
 										: ''}
 								</Link>
 							</li>
