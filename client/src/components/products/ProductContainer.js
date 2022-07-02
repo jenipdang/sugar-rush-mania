@@ -8,10 +8,8 @@ const ProductContainer = () => {
     const [search, setSearch] = useState('')
     const [searchResult, setSearchResult] = useState([])
 
-    const allCategories = ['All', ...new Set(products.map((product) => product.category))]
-    console.log(allCategories)
-
-
+    const allCategories = ["All",...new Set(products.map((product) => product.category))]
+   
     useEffect(() => {
         fetch('/api/products')
         .then((r) => r.json())
@@ -21,13 +19,15 @@ const ProductContainer = () => {
         .catch((err) => alert(err.errors))
     }, [])
 
-    const filterProducts = (category) => {
-      if (category === 'All') {
+    const filterProducts = (categoryItem) => {
+      if (categoryItem === 'All') {
         setSearchResult(products);
         return;
       }
-      const newProducts = products.filter((product) => product.category === category)
-      setSearchResult(newProducts);
+      const result = products.filter((currentData) => {
+        return currentData.category === categoryItem;
+      });
+      setSearchResult(result);
     };
   
     const searchHandler = (search) => {
@@ -44,19 +44,20 @@ const ProductContainer = () => {
               setSearchResult(products)
           }
     };
+
+ 
   return (
     <div className='container'>
-      	<header className='blog-header py-3'>
+      	<header className='blog-header sticky-top py-3'>
 					<div className='row flex-nowrap justify-content-between align-items-center'>
-						{/* <div className='col-4 text-center'>
-							<h3>Sugar Rush Mania</h3>
-						</div> */}
+						<div className='col-6 text-center'>
+			        <Filter categories={allCategories} filterProducts={filterProducts}/>
+						</div>
 						<div className='col-4 d-flex justify-content-end align-items-center'>
 							<Search products={products} term={search} searchKeyword={searchHandler}/>
 						</div>
 					</div>
 				</header>
-			  <Filter categories={allCategories} filterProducts={filterProducts}/>
         <ProductList products={searchResult} />
     </div>
   )

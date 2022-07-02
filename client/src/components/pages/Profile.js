@@ -4,7 +4,6 @@ import './profile.css';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import { useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../context/user';
 
@@ -67,6 +66,7 @@ const Profile = () => {
 													<img
 														style={{ width: '50px', height: '50px' }}
 														src={posted_product.image_url} 
+														alt={posted_product.name}
 														/>{' '}
 													|| last update: {dateformat(posted_product?.updated_at, 'dddd, mmmm dS yyyy')}
 												</Link>

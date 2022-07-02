@@ -1,18 +1,18 @@
 import React from 'react';
-import { useGlobalContext } from '../data/context';
-import '../css/Cart.css';
-import '../css/Details.css';
-import { useNavigate } from 'react-router-dom';
+import { useGlobalContext } from '../context/context';
+import './cart.css';
+import '../products/details.css'
+import { useHistory } from 'react-router-dom';
 
 
 const Cart = () => {
 	const { setCart, cart, addItem, removeItem } = useGlobalContext();
 	const itemsAmount = cart.reduce((a, c) => a + c.amount * c.qty, 0);
 
-	let navigate = useNavigate();
+	const history = useHistory();
 
 	const handleClick = () => {
-		navigate('/products');
+		history.push('/products');
 	};
 
 	const handleCheckout = () => {

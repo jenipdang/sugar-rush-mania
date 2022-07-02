@@ -12,6 +12,7 @@ import Notification from './pages/Notification'
 import Review from "./reviews/ReviewCard";
 import { UserContext } from "./context/user";
 import Profile from "./pages/Profile";
+import Cart from './pages/Cart'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       }
     });
   }, [setUser]);
+  
 
   return (
     <>
@@ -47,6 +49,9 @@ function App() {
           </Route>
           <Route path="/products">
             <ProductContainer />
+          </Route>
+          <Route path="/cart">
+            <Cart />
           </Route>
           <Route path="/about">
             <About />

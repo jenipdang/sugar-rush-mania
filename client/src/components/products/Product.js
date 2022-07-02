@@ -93,7 +93,7 @@ const Product = ({ product }) => {
 								<p>Price: ${finalProduct.price}</p>
 								<button
 									className='btn btn-dark ms-2'
-									onClick={() => addItem(product)}
+									onClick={() => addItem(finalProduct)}
 								>
 									Add to Cart
 								</button>

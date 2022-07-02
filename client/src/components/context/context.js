@@ -18,6 +18,7 @@ const DataProvider = ({children}) => {
 		}
 	}
 	
+	
 	useEffect(() => {
 		getProduct()
 	}, [])
@@ -44,7 +45,7 @@ const DataProvider = ({children}) => {
 
   return (
       <div>
-          <DataContext.Provider value={{setCart, cart, setProduct, product, addItem, removeItem}}>
+          <DataContext.Provider value={{setCart, cart, product, addItem, removeItem}}>
               {children}
           </DataContext.Provider>
       </div>

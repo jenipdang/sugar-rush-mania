@@ -1,16 +1,18 @@
-const Filter = ({ categories, filterProducts }) => {
+const Filter = ({ categories, filterProducts}) => {
   return (
     <div className="btn-container">
 			{categories?.map((category, index) => {
 				return (
 					<button
 						type="button"
-						className="filter-btn"
+						className="btn btn-ligth ms-2"
 						key={index}
 						onClick={() => filterProducts(category)}
+                        defaultFilteredValue={['All']}
 					>
                         <div key={category.name} id={category.name}>
 						{category}
+                        
                         </div>
 					</button>
 				);
