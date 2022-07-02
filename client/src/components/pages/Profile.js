@@ -68,7 +68,7 @@ const Profile = () => {
 												>
 													{posted_product.name} || ordered:{' '}
 													{posted_product.ordered} || current selling price: $
-													{posted_product.price} ||{' '}
+													{posted_product.price} || total sale of ${posted_product.total_sale}{' '}||{' '}
 													<img
 														style={{ width: '50px', height: '50px' }}
 														src={posted_product.image_url} 

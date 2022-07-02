@@ -19,5 +19,8 @@ class Product < ApplicationRecord
         self.preload(:orders).max_by{|p| p.orders.count}
     end
 
+    def total_sale
+        self.orders.all.sum{|p| p.total_order}
+    end
 
 end
