@@ -10,7 +10,7 @@ const DataProvider = ({children}) => {
 	
 	const getProduct = async (id) => {
 		try {
-			const response = await fetch('/api/products');
+			const response = await fetch(`/api/products/${id}`);
 			const data = await response.json();
 			setProduct(data)
 		} catch (error) {
@@ -26,6 +26,7 @@ const DataProvider = ({children}) => {
 	
     const addItem = (product) => {
 		const existing = cart.find(item => item.id === product.id)
+		debugger
 		if (existing) {
 			setCart(cart.map(item => item.id === product.id ? {...existing, qty: existing.qty + 1 } : item ))
 		}

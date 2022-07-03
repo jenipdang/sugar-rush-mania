@@ -22,7 +22,7 @@ function NavBar() {
   }
 
   return (
-    <Navbar className='navbar sticky-top' style={{ background: "linear-gradient(to right, #ddd6f3, #faaca8)"}} expand="lg">
+    <Navbar className='navbar sticky-top mb-5' style={{ background: "linear-gradient(to right, #ddd6f3, #faaca8)"}} expand="lg">
     <Container fluid>
       <Navbar.Brand>
         {/* <img src={window.location.orgin + 'public/SRMlogo.png'} alt="Sugar Rush Mania" /> */}
@@ -34,6 +34,7 @@ function NavBar() {
           style={{ maxHeight: '100px' }}
           navbarScroll
         >
+          <Nav.Link href="/home">Home</Nav.Link>
           <Nav.Link href="/products">Products</Nav.Link>
           <Nav.Link href="/about">About</Nav.Link>
           <Nav.Link href="/contact">Contact Us</Nav.Link>

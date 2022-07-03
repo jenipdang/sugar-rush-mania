@@ -15,6 +15,7 @@ const ProductContainer = () => {
         .then((r) => r.json())
         .then((data) => {
             setProducts(data)
+            setSearchResult(data)
         })
         .catch((err) => alert(err.errors))
     }, [])

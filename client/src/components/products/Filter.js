@@ -8,7 +8,6 @@ const Filter = ({ categories, filterProducts}) => {
 						className="btn btn-ligth ms-2"
 						key={index}
 						onClick={() => filterProducts(category)}
-                        defaultFilteredValue={['All']}
 					>
                         <div key={category.name} id={category.name}>
 						{category}

@@ -13,6 +13,7 @@ import Review from "./reviews/ReviewCard";
 import { UserContext } from "./context/user";
 import Profile from "./pages/Profile";
 import Cart from './pages/Cart'
+import FeatureProduct from "./pages/FeatureProduct";
 
 
 function App() {
@@ -32,6 +33,9 @@ function App() {
       <NavBar />
       <Notification />
         <Switch>
+          <Route path="/home">
+            <FeatureProduct />
+          </Route>
           <Route path="/profile">
             <Profile />
           </Route>
