@@ -19,10 +19,6 @@ class User < ApplicationRecord
     self.reviewed_products.uniq.length
   end
 
-  # def total_hosted_events_ordered
-  #   self.hosted_events.uniq.length
-  # end
-
   def total_ordered
     self.orders.uniq.length
   end
