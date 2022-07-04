@@ -19,6 +19,17 @@ class Api::OrdersController < ApplicationController
         render json: @order
     end
 
+    def create
+        @order = Order.new(order_params)
+        @current_cart.cart_products.each do |product|
+            @order.cart_products << product
+            product.cart_id = nil
+        end
+        @order.save
+        Cart.destroy(session[:cart_id])
+        sesson[:cart_id] = nil
+    end
+
 
     #PATCH "/orders/:id"
     def update
@@ -41,7 +52,7 @@ class Api::OrdersController < ApplicationController
 
 
     def order_params
-        params.require(:order).permit(:event_id, :product_id, :quantity)
+        params.require(:order).permit(:event_id, :cart_id)
     end
 
     def check_admin

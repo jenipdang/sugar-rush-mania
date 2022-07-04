@@ -4,6 +4,8 @@ Product.delete_all
 Event.delete_all
 Order.delete_all
 Review.delete_all
+Cart.delete_all
+CartProduct.delete_all
 
 puts "🌱 Creating users..."
 racheal = User.create(username: "racheal", email: "racheal@yahoo.com", password: "1234567ra")
@@ -29,19 +31,25 @@ p5 = Product.create!(user_id: jeni.id, name: "Creme Brulee", price: "8.50", desc
 p6 = Product.create!(user_id: jeni.id, name: "Cookie", price: "4.50", description: "Available Flavors: Chocolate Chip, Oatmeal Raisin, White Chocolate Chip, Peanut Butter and Butter", category: "Cookie").image.attach(io: File.open('/Users/jenidang/Development/code/Phase5/SRM_Images/cookies.png'), filename: 'cookies.png')
 
 
-puts "🌱 Creating orders..."
-Order.create(event_id: 1, product_id: 3, quantity: 50)
-Order.create(event_id: 1, product_id: 5, quantity: 100)
-Order.create(event_id: 1, product_id: 6, quantity: 100)
-Order.create(event_id: 2, product_id: 4, quantity: 1)
-Order.create(event_id: 2, product_id: 3, quantity: 50)
-Order.create(event_id: 2, product_id: 6, quantity: 50)
-Order.create(event_id: 3, product_id: 2, quantity: 1)
-Order.create(event_id: 3, product_id: 1, quantity: 50)
-Order.create(event_id: 3, product_id: 3, quantity: 50)
+# puts "🌱 Creating cart_products..."
+# CartProduct.create(cart_id: 1, product: p2, quantity: 50)
+# CartProduct.create(cart_id: 1, product: p4, quantity: 1)
+# CartProduct.create(cart_id: 1, product: p5, quantity: 50)
+# CartProduct.create(cart_id: 2, product: p6, quantity: 100)
+# CartProduct.create(cart_id: 2, product: p4, quantity: 1)
+# CartProduct.create(cart_id: 2, product: p5, quantity: 100)
+# CartProduct.create(cart_id: 3, product: p1, quantity: 70)
+# CartProduct.create(cart_id: 3, product: p6, quantity: 140)
+# CartProduct.create(cart_id: 3, product: p1, quantity: 1)
+
+# puts "🌱 Creating orders..."
+# Order.create(event_id: 1, cart_id: 1)
+# Order.create(event_id: 2, cart_id: 2)
+# Order.create(event_id: 3, cart_id: 3)
 
 
-puts "🌱 Creating reviews..."
-Review.create!(event_id: 1, user_id: 2, product_id: 5, title: "Best Desserts in Town!", content: "The dessert table setup was so pretty! Love the taste, not too sweet...just perfect! Would definite recommend this to all my friends and family.", rating: "5").image.attach(io: File.open('/Users/jenidang/Development/code/Phase5/SRM_Images/cb_table.png'), filename: 'cb_table.png')
+
+# puts "🌱 Creating reviews..."
+# Review.create!(event_id: 1, user_id: 2, product_id: 5, title: "Best Desserts in Town!", content: "The dessert table setup was so pretty! Love the taste, not too sweet...just perfect! Would definite recommend this to all my friends and family.", rating: "5")
 
 puts "🌱 Seeding done!"

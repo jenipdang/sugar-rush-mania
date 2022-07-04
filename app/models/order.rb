@@ -1,11 +1,8 @@
 class Order < ApplicationRecord
     belongs_to :event
-    belongs_to :product
+    belongs_to :cart
+    # has_many :products, through: :cart
     has_many :reviews
-  
-    def total_order
-      (self.product.price) * (self.quantity)
-    end
-  
-  
+ 
+
 end

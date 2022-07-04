@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   namespace :api do
+ 
     resources :products do 
       resources :reviews, shallow: true
     end
@@ -11,12 +12,19 @@ Rails.application.routes.draw do
     get "/me", to: "users#show"
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
+    post "/reduce-quanity", to: "cart_products#reduce_quantity"
+    post "/add-quanity", to: "cart_products#add_quantity"
 
     resources :reviews, only: [:index]
     resources :orders, only: [:update, :destroy, :show]
 
     resources :events do 
       resources :orders, shallow: true
+
+    resources :cart_products
+    resources :carts
+
+    root "products#most_popular"
     end
 
     # resources :products do 

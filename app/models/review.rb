@@ -1,5 +1,4 @@
 class Review < ApplicationRecord
-  has_one_attached :image, dependent: :destroy
   belongs_to :product
   belongs_to :event
   belongs_to :reviewer, class_name: "User", foreign_key: :user_id
@@ -15,7 +14,4 @@ class Review < ApplicationRecord
     end
   end
 
-  def image_url
-    Rails.application.routes.url_helpers.url_for(image) if image.attached? 
-  end
 end

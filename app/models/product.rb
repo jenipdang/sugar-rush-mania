@@ -4,6 +4,8 @@ class Product < ApplicationRecord
     has_many :events, through: :orders
     has_many :reviews, dependent: :destroy
     has_many :reviewers, through: :reviews, source: :reviewer
+    has_many :cart_products
+    has_many :carts, through: :cart_products
 
     validates :name, :price, :description, :category, presence: true
     validates :price, numericality: { in: 0..500 }
@@ -15,10 +17,6 @@ class Product < ApplicationRecord
     def ordered
         self.events.length
     end
-
-    # def self.most_popular
-    #     self.preload(:orders).max_by{|p| p.orders.count}
-    # end
 
     def total_sale
         self.orders.all.sum{|p| p.total_order}
