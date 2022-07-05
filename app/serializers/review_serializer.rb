@@ -1,5 +1,5 @@
 class ReviewSerializer < ActiveModel::Serializer
-  attributes :id, :title, :content, :rating, :post_by, :image_url, :product_name, :created_at
+  attributes :id, :title, :content, :rating, :product_name, :created_at
   belongs_to :product
 
   def product_name
@@ -7,8 +7,8 @@ class ReviewSerializer < ActiveModel::Serializer
   end
 
 
-  def post_by
-    "#{self.object.reviewer.username}"
-  end
+  # def post_by
+  #   "#{self.object.reviewer.username}"
+  # end
 
 end

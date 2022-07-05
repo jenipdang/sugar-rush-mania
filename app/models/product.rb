@@ -14,20 +14,20 @@ class Product < ApplicationRecord
         Rails.application.routes.url_helpers.url_for(image) if image.attached? 
     end
 
-    def ordered
-        self.events.length
-    end
+    # def ordered
+    #     self.events.length
+    # end
 
-    def total_sale
-        self.orders.all.sum{|p| p.total_order}
-    end
+    # def total_sale
+    #     self.orders.all.sum{|p| p.total_order}
+    # end
 
-    def total_reviwers
-        self.reviewers.uniq.length
-    end
+    # def total_reviwers
+    #     self.reviewers.uniq.length
+    # end
 
     def self.most_popular
-        self.joins(:orders).group("products.id").order("count(products.id) desc").limit(3)
+        self.joins(:cart_products).group("products.id").order("count(products.id) desc").limit(3)
     end
 
 end

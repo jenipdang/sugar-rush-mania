@@ -1,6 +1,6 @@
 class Api::OrdersController < ApplicationController
     before_action :find_order, only: [:show, :update, :destroy]
-    before_action :check_admin, except: [:index, :show]
+    # before_action :check_admin, except: [:index, :show]
   
   
     #GET "/orders" or GET "/events/:event_id/orders"
@@ -31,17 +31,17 @@ class Api::OrdersController < ApplicationController
     end
 
 
-    #PATCH "/orders/:id"
-    def update
-        @order&.update!(order_params)
-        render json: @order
-    end
+    # #PATCH "/orders/:id"
+    # def update
+    #     @order&.update!(order_params)
+    #     render json: @order
+    # end
 
-    #DELETE "/orders/:id"
-    def destroy
-        @order&.destroy
-        render json: {message: "Successfully destroyed the order"}
-    end
+    # #DELETE "/orders/:id"
+    # def destroy
+    #     @order&.destroy
+    #     render json: {message: "Successfully destroyed the order"}
+    # end
 
 
     private
@@ -50,12 +50,11 @@ class Api::OrdersController < ApplicationController
         @order = Order.find(params[:id])
     end
 
-
     def order_params
         params.require(:order).permit(:event_id, :cart_id)
     end
 
-    def check_admin
-    render json: { errors: ["Not Authorized"]}, status: :unauthorized unless @current_user.admin?
-    end
+    # def check_admin
+    # render json: { errors: ["Not Authorized"]}, status: :unauthorized unless @current_user.admin?
+    # end
 end

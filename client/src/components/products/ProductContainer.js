@@ -8,13 +8,13 @@ const ProductContainer = () => {
     const [search, setSearch] = useState('')
     const [searchResult, setSearchResult] = useState([])
 
-    const allCategories = ["All",...new Set(products.map((product) => product.category))]
-   
+  
     useEffect(() => {
         fetch('/api/products')
         .then((r) => r.json())
         .then((data) => {
             setProducts(data)
+            console.log(data)
             setSearchResult(data)
         })
         .catch((err) => alert(err.errors))
@@ -25,12 +25,14 @@ const ProductContainer = () => {
         setSearchResult(products);
         return;
       }
-      const result = products.filter((currentData) => {
+      const result = products?.filter((currentData) => {
         return currentData.category === categoryItem;
       });
       setSearchResult(result);
     };
-  
+
+    const allCategories = ["All",...new Set(products?.map((product) => product.category))]
+    
     const searchHandler = (search) => {
           setSearch(search)
       if (search !== '') {
@@ -49,12 +51,10 @@ const ProductContainer = () => {
  
   return (
     <div className='container'>
-      	<header className='blog-header sticky-top py-3'>
+      	<header className='blog-header position-fixed'>
 					<div className='row flex-nowrap justify-content-between align-items-center'>
 						<div className='col-6 text-center'>
 			        <Filter categories={allCategories} filterProducts={filterProducts}/>
-						</div>
-						<div className='col-4 d-flex justify-content-end align-items-center'>
 							<Search products={products} term={search} searchKeyword={searchHandler}/>
 						</div>
 					</div>

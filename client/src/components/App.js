@@ -36,9 +36,6 @@ function App() {
           <Route path="/home">
             <FeatureProduct />
           </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
           <Route path="/products/new">
             <NewProduct />
           </Route>
@@ -53,6 +50,9 @@ function App() {
           </Route>
           <Route path="/products">
             <ProductContainer />
+          </Route>
+          <Route path="/profile">
+            <Profile />
           </Route>
           <Route path="/cart">
             <Cart />

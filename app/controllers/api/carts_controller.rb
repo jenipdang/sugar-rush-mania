@@ -2,11 +2,12 @@ class Api::CartsController < ApplicationController
 
     before_action :set_cart, only: [:show, :edit, :update, :destroy]
   
-    def index
-      @carts = Cart.all
-    end
+    # def index
+    #   @carts = Cart.all
+    # end
   
     def show
+        render json: @current_cart
     end
 
     def create

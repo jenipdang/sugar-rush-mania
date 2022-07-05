@@ -48,6 +48,7 @@ function NavBar() {
             <Nav.Link href="/account">Sign In</Nav.Link>
           ): null}
         {user ? (
+        <>
           <NavDropdown title={user.username} id="navbarScrollingDropdown" style={{marginRight: '40px'}}>
             <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
             {user.role === "admin" ? (
@@ -59,7 +60,7 @@ function NavBar() {
               Log Out
             </NavDropdown.Item>
           </NavDropdown>
-          ) : null
+          </>) : null
           }
         </Nav>
       </Navbar.Collapse>

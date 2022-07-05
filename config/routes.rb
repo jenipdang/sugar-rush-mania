@@ -12,26 +12,23 @@ Rails.application.routes.draw do
     get "/me", to: "users#show"
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
-    post "/reduce-quanity", to: "cart_products#reduce_quantity"
-    post "/add-quanity", to: "cart_products#add_quantity"
+   
 
     resources :reviews, only: [:index]
     resources :orders, only: [:update, :destroy, :show]
 
     resources :events do 
       resources :orders, shallow: true
-
-    resources :cart_products
-    resources :carts
-
-    root "products#most_popular"
+    end
+    
+    resources :users do
+      resources :carts do 
+       resources :cart_products, shallow: true
+      end
     end
 
-    # resources :products do 
-    #   member do
-    #     delete :delete_file
-    #   end
-    # end
+    root "products#most_popular"
+
 
   end
   # all other routes will be load our React application

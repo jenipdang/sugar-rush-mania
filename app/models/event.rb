@@ -7,8 +7,8 @@ class Event < ApplicationRecord
     validates :name, :datetime, :location, presence: true
     # validates :datetime, comparison: { greater_than: DateTime.now}
 
-    def total_cost
-        self.products.sum(:price) * self.orders.sum(:quantity)
-    end
+    # def total_cost
+    #     self.products.sum(:price) * self.orders.sum(:quantity)
+    # end
 
 end

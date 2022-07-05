@@ -3,6 +3,7 @@ class Api::UsersController < ApplicationController
 
   def create
     user = User.create!(user_params)
+    user.cart = Cart.create!()
     session[:user_id] = user.id
     render json: user, status: :created
   end
