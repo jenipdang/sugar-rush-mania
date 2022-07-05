@@ -3,7 +3,7 @@ import ProductList from './ProductList'
 import Search from './Search'
 import Filter from './Filter'
 
-const ProductContainer = ({addToCart, prods}) => {
+const ProductContainer = ({onAdd, prods}) => {
     const [products, setProducts ] = useState([])
     const [search, setSearch] = useState('')
     const [searchResult, setSearchResult] = useState([])
@@ -61,7 +61,7 @@ const ProductContainer = ({addToCart, prods}) => {
 						</div>
 					</div>
 				</header>
-        <ProductList products={searchResult} addToCart={addToCart}/>
+        <ProductList products={searchResult} onAdd={onAdd}/>
     </div>
   )
 }

@@ -32,14 +32,28 @@ function App() {
     });
   }, [setUser]);
 
+
   useEffect(() => {
     fetch('/api/products')
     .then((r) => r.json())
     .then((data) => {
         setProducts(data)
+        // console.log(data)
     })
     .catch((err) => setErrors(err.errors))
 }, [])
+
+
+useEffect(() => {
+  if(user) {
+    fetch(`/api/users/${user.id}/cart_products`)
+      .then((r) => r.json())
+      .then((cart_products) => {
+        setCart(cart_products)
+      })
+      .catch((err) => setErrors(err.errors))
+  }
+}, [user])
 
 // fetch(`/api/users/${user.id}/cart_products?product_id=${product.id}`
 
@@ -53,6 +67,7 @@ function App() {
 				quantity: 1
 			})
 		}).then((r) => {
+      console.log(product)
 			if (r.ok) {
 				r.json().then((cart_products) => setCart(cart_products))
 			}
@@ -78,10 +93,24 @@ function App() {
     .catch((err) => setErrors((err.errors)))
 	}
 
-  
+  // function reduceQuantity(productId) {
+  //   fetch(`api/cart_products/${productId}`, {
+	// 		method: "PATCH",
+  //     headers: {
+  //       "Content-Type": 'application/json',
+  //     },
+  //     body: JSON.stringify({quanity: -1})
+	// 	}).then((r) => {
+	// 		if (r.ok) {
+	// 			setCart([...cart].filter((product) => product.product_id !== productId))
+	// 		} else {
+	// 			r.json().then((err) => setErrors(err.errors))
+	// 		}
+	// 	})
+  //   .catch((err) => setErrors((err.errors)))
+	//   }
 
   
-
   return (
     <>
       <NavBar cart={cart}/>
@@ -100,16 +129,16 @@ function App() {
             <Review />
           </Route>
           <Route path="/products/:productId">
-            <Product addToCart={addToCart}/>
+            <Product onAdd={addToCart}/>
           </Route>
           <Route path="/products">
-            <ProductContainer addToCart={addToCart} />
+            <ProductContainer onAdd={addToCart} />
           </Route>
           <Route path="/profile">
             <Profile />
           </Route>
           <Route path="/cart">
-            <Cart addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} setCart={setCart}/>
+            <Cart onAdd={addToCart} onRemove={removeFromCart} cart={cart} setCart={setCart} products={products}/>
           </Route>
           <Route path="/about">
             <About />

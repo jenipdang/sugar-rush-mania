@@ -20,6 +20,16 @@ class Api::CartProductsController < ApplicationController
           end
           render json: current_user.cart_products, status: :created
       end
+
+    #   def update
+    #     cart_product = current_user.cart_products.find_by(product_id: params[:product_id])
+    #     if cart_product.quantity > 1
+    #        cart_product.quantity -= 1
+    #     end
+    #     cart_product.save
+    #     render json: current_user.cart_products, status: :created
+    #   end
+
     
       def destroy
           cart_product = current_user.cart_products.find_by(product_id: params[:id])

@@ -66,11 +66,11 @@ ActiveRecord::Schema.define(version: 2022_07_05_195437) do
 
   create_table "ordered_products", force: :cascade do |t|
     t.bigint "event_id"
-    t.bigint "products_id"
+    t.bigint "product_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_ordered_products_on_event_id"
-    t.index ["products_id"], name: "index_ordered_products_on_products_id"
+    t.index ["product_id"], name: "index_ordered_products_on_product_id"
   end
 
   create_table "orders", force: :cascade do |t|

@@ -50,7 +50,7 @@ class Api::ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:user_id, :name, :price, :description, :category, :image)
+    params.permit(:user_id, :name, :price, :description, :category, :image)
   end
 
   # def check_admin

@@ -45,6 +45,9 @@ puts "🌱 Creating orders..."
 Order.create(event_id: 1, user_id: 1)
 Order.create(event_id: 2, user_id: 2)
 
+puts "🌱 Creating ordered_products..."
+
+
 puts "🌱 Creating reviews..."
 Review.create!(event_id: 1, user_id: 2, product_id: 5, title: "Best Desserts in Town!", content: "The dessert table setup was so pretty! Love the taste, not too sweet...just perfect! Would definite recommend this to all my friends and family.", rating: "5")
 

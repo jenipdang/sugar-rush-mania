@@ -10,7 +10,7 @@ import { MessageContext } from '../context/message';
 import { UserContext } from '../context/user';
 import { MdOutlineExpandMore, MdOutlineExpandLess } from 'react-icons/md'
 
-const Product = ({ product, addToCart }) => {
+const Product = ({ product, onAdd }) => {
 	const [productObj, setProductObj] = useState(null);
 	const [reviews, setReviews] = useState([]);
 	const [isEditing, setIsEditing] = useState(false);
@@ -92,7 +92,8 @@ const Product = ({ product, addToCart }) => {
 								<p>Price: ${finalProduct.price}</p>
 								<button
 									className='btn btn-dark ms-2'
-									onClick={() => addToCart(finalProduct)}
+							
+									onClick={() => onAdd(finalProduct)}
 								>
 									{isLoading ? "Adding" : "Add to Cart"}
 								</button>

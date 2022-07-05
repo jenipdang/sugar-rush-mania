@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
     has_one_attached :image, dependent: :destroy
-    has_many :ordered_products
-    has_many :events, through: :ordered_products
+    has_many :orders
+    has_many :events, through: :orders
     has_many :reviews, dependent: :destroy
     has_many :reviewers, through: :reviews, source: :reviewer
 
