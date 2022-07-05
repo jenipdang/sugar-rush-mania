@@ -1,4 +1,4 @@
-import React, { useContext, useEffect} from "react";
+import { useContext, useEffect, useState} from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./pages/NavBar";
 import { Login } from "./accountBox/Login";
@@ -17,7 +17,12 @@ import FeatureProduct from "./pages/FeatureProduct";
 
 
 function App() {
-  const { setUser } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
+  const [cart, setCart] = useState([])
+  const [errors, setErrors] = useState([])
+  const [products, setProducts] = useState([])
+  const [search, setSearch] = useState('')
+  const [searchResult, setSearchResult] = useState([])
 
   useEffect(() => {
     fetch("/api/me").then((r) => {
@@ -26,11 +31,60 @@ function App() {
       }
     });
   }, [setUser]);
+
+  useEffect(() => {
+    fetch('/api/products')
+    .then((r) => r.json())
+    .then((data) => {
+        setProducts(data)
+    })
+    .catch((err) => setErrors(err.errors))
+}, [])
+
+// fetch(`/api/users/${user.id}/cart_products?product_id=${product.id}`
+
+  function addToCart(product) {
+		fetch(`/api/users/${user.id}/cart_products?product_id=${product.id}`, {
+			method: "POST",
+			headers: { "Content-Type": "applicaiton/json"},
+			body: JSON.stringify({
+				product_id: product.id,
+				user_id: user.id,
+				quantity: 1
+			})
+		}).then((r) => {
+			if (r.ok) {
+				r.json().then((cart_products) => setCart(cart_products))
+			}
+			else {
+				r.json().then((err) => setErrors(err.errors))
+			}
+		})
+	}
+
+  console.log("This is from APP:")
+  console.log(cart)
+
+  function removeFromCart(productId) { 
+		fetch(`api/cart_products/${productId}`, {
+			method: "DELETE"
+		}).then((r) => {
+			if (r.ok) {
+				setCart([...cart].filter((product) => product.product_id !== productId))
+			} else {
+				r.json().then((err) => setErrors(err.errors))
+			}
+		})
+    .catch((err) => setErrors((err.errors)))
+	}
+
+  
+
   
 
   return (
     <>
-      <NavBar />
+      <NavBar cart={cart}/>
       <Notification />
         <Switch>
           <Route path="/home">
@@ -46,16 +100,16 @@ function App() {
             <Review />
           </Route>
           <Route path="/products/:productId">
-            <Product />
+            <Product addToCart={addToCart}/>
           </Route>
           <Route path="/products">
-            <ProductContainer />
+            <ProductContainer addToCart={addToCart} />
           </Route>
           <Route path="/profile">
             <Profile />
           </Route>
           <Route path="/cart">
-            <Cart />
+            <Cart addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} setCart={setCart}/>
           </Route>
           <Route path="/about">
             <About />

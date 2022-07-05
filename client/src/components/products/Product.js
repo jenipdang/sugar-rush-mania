@@ -1,6 +1,5 @@
 import { useLocation, useParams, Link, useHistory } from 'react-router-dom';
 // import { Card } from 'semantic-ui-react';
-import { useGlobalContext } from '../context/context';
 import { useContext, useEffect, useState } from 'react';
 import NewReview from '../reviews/NewReview';
 import ReviewsList from '../reviews/ReviewsList';
@@ -11,11 +10,11 @@ import { MessageContext } from '../context/message';
 import { UserContext } from '../context/user';
 import { MdOutlineExpandMore, MdOutlineExpandLess } from 'react-icons/md'
 
-const Product = ({ product }) => {
-	const { addItem } = useGlobalContext();
+const Product = ({ product, addToCart }) => {
 	const [productObj, setProductObj] = useState(null);
 	const [reviews, setReviews] = useState([]);
 	const [isEditing, setIsEditing] = useState(false);
+	const [isLoading, setIsLoading] = useState(false)
 	const { productId } = useParams();
 	const location = useLocation();
 	const history = useHistory();
@@ -93,9 +92,9 @@ const Product = ({ product }) => {
 								<p>Price: ${finalProduct.price}</p>
 								<button
 									className='btn btn-dark ms-2'
-									onClick={() => addItem(finalProduct)}
+									onClick={() => addToCart(finalProduct)}
 								>
-									Add to Cart
+									{isLoading ? "Adding" : "Add to Cart"}
 								</button>
 								{user?.role === 'admin' ? (
 									<>

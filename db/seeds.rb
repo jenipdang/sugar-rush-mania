@@ -3,7 +3,6 @@ User.delete_all
 Product.delete_all
 Order.delete_all
 Review.delete_all
-Cart.delete_all
 CartProduct.delete_all
 
 puts "🌱 Creating users..."
@@ -29,27 +28,22 @@ p5 = Product.create!(user_id: jeni.id, name: "Creme Brulee", price: "8.50", desc
 
 p6 = Product.create!(user_id: jeni.id, name: "Cookie", price: "4.50", description: "Available Flavors: Chocolate Chip, Oatmeal Raisin, White Chocolate Chip, Peanut Butter and Butter", category: "Cookie").image.attach(io: File.open('/Users/jenidang/Development/code/Phase5/SRM_Images/cookies.png'), filename: 'cookies.png')
 
-puts "🌱 Creating carts..."
-Cart.create(user_id: racheal.id)
-Cart.create(user_id: kim.id)
 
-
-puts "🌱 Creating orders..."
-Order.create(event_id: 1, cart_id: 1)
-Order.create(event_id: 2, cart_id: 2)
-# Order.create(event_id: 3, cart_id: 3)
 
 puts "🌱 Creating cart_products..."
-CartProduct.create(cart_id: 1, product_id: 2, quantity: 50)
-CartProduct.create(cart_id: 1, product_id: 4, quantity: 1)
-CartProduct.create(cart_id: 1, product_id: 5, quantity: 50)
-CartProduct.create(cart_id: 2, product_id: 6, quantity: 100)
-CartProduct.create(cart_id: 2, product_id: 4, quantity: 1)
-CartProduct.create(cart_id: 2, product_id: 5, quantity: 100)
+CartProduct.create(user_id: 1, product_id: 2, quantity: 50)
+CartProduct.create(user_id: 1, product_id: 4, quantity: 1)
+CartProduct.create(user_id: 1, product_id: 5, quantity: 50)
+CartProduct.create(user_id: 2, product_id: 6, quantity: 100)
+CartProduct.create(user_id: 2, product_id: 4, quantity: 1)
+CartProduct.create(user_id: 2, product_id: 5, quantity: 100)
 # CartProduct.create(cart_id: 3, product: p1, quantity: 70)
 # CartProduct.create(cart_id: 3, product: p6, quantity: 140)
 # CartProduct.create(cart_id: 3, product: p1, quantity: 1)
 
+puts "🌱 Creating orders..."
+Order.create(event_id: 1, user_id: 1)
+Order.create(event_id: 2, user_id: 2)
 
 puts "🌱 Creating reviews..."
 Review.create!(event_id: 1, user_id: 2, product_id: 5, title: "Best Desserts in Town!", content: "The dessert table setup was so pretty! Love the taste, not too sweet...just perfect! Would definite recommend this to all my friends and family.", rating: "5")

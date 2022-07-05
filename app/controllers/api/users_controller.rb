@@ -12,6 +12,10 @@ class Api::UsersController < ApplicationController
     render json: @current_user
   end
 
+  def showcart
+    render json: @current_user.cart_products
+  end
+
   def update
       @current_user.update!(params.permit(:email, :username))
       render json: @current_user

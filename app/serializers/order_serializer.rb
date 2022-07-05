@@ -1,9 +1,8 @@
 class OrderSerializer < ActiveModel::Serializer
-  attributes :id, :event_name, :product_list
+  attributes :id, :event_name
 
-  # belongs_to :cart
-  # has_many :cart_products, through: :cart
-
+  has_many :products
+  
   def event_name
     "#{self.object.event.name}"
   end

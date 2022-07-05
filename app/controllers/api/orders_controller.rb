@@ -51,7 +51,7 @@ class Api::OrdersController < ApplicationController
     end
 
     def order_params
-        params.require(:order).permit(:event_id, :cart_id)
+        params.require(:order).permit(:event_id, :user_id)
     end
 
     # def check_admin

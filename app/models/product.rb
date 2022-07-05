@@ -4,8 +4,6 @@ class Product < ApplicationRecord
     has_many :events, through: :orders
     has_many :reviews, dependent: :destroy
     has_many :reviewers, through: :reviews, source: :reviewer
-    has_many :cart_products
-    has_many :carts, through: :cart_products
 
     validates :name, :price, :description, :category, presence: true
     validates :price, numericality: { in: 0..500 }
@@ -26,8 +24,8 @@ class Product < ApplicationRecord
     #     self.reviewers.uniq.length
     # end
 
-    def self.most_popular
-        self.joins(:cart_products).group("products.id").order("count(products.id) desc").limit(3)
-    end
+    # def self.most_popular
+    #     self.joins(:cart_products).group("products.id").order("count(products.id) desc").limit(3)
+    # end
 
 end

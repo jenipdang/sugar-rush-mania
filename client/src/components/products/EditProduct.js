@@ -33,13 +33,13 @@ const EditProduct = ({ productObj, handleUpdate }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (
-			[product.name, product.price, product.description, product.category].some(
-				(val) => val.trim() === ''
-			)
-		) {
-			alert('All information mmust be fill out.');
-		}
+		// if (
+		// 	[product.name, product.price, product.description, product.category].some(
+		// 		(val) => val.trim() === ''
+		// 	)
+		// ) {
+		// 	alert('All information mmust be fill out.');
+		// }
 
 		setIsLoading(true);
 

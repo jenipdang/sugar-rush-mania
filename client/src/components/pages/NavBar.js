@@ -8,7 +8,7 @@ import { UserContext } from '../context/user';
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 
 
-function NavBar() {
+function NavBar({cart}) {
   const { user, setUser } = useContext(UserContext)
   const { setMessage } = useContext(MessageContext)
 
@@ -38,12 +38,9 @@ function NavBar() {
           <Nav.Link href="/products">Products</Nav.Link>
           <Nav.Link href="/about">About</Nav.Link>
           <Nav.Link href="/contact">Contact Us</Nav.Link>
-          {/* <Nav.Link href="#" disabled>
-            Link
-          </Nav.Link> */}
         </Nav>
         <Nav className="d-flex" style={{ paddingRight: '30px'}}>
-          <Nav.Link href='/cart'><AiOutlineShoppingCart style={{fontSize: '23px'}} /></Nav.Link>
+          <Nav.Link href='/cart'>{cart ? cart.length > 0 : null}<AiOutlineShoppingCart style={{fontSize: '23px'}} /></Nav.Link>
         {!user ? (
             <Nav.Link href="/account">Sign In</Nav.Link>
           ): null}

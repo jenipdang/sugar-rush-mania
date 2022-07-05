@@ -3,21 +3,23 @@ import ProductList from './ProductList'
 import Search from './Search'
 import Filter from './Filter'
 
-const ProductContainer = () => {
+const ProductContainer = ({addToCart, prods}) => {
     const [products, setProducts ] = useState([])
     const [search, setSearch] = useState('')
     const [searchResult, setSearchResult] = useState([])
+    const [errors, setErrors] = useState([])
 
   
     useEffect(() => {
-        fetch('/api/products')
-        .then((r) => r.json())
-        .then((data) => {
-            setProducts(data)
-            console.log(data)
-            setSearchResult(data)
-        })
-        .catch((err) => alert(err.errors))
+        if(!prods) {
+          fetch('/api/products')
+          .then((r) => r.json())
+          .then((data) => {
+              setProducts(data)
+              setSearchResult(data)
+          })
+          .catch((err) => setErrors(err.errors))
+        }
     }, [])
 
     const filterProducts = (categoryItem) => {
@@ -59,7 +61,7 @@ const ProductContainer = () => {
 						</div>
 					</div>
 				</header>
-        <ProductList products={searchResult} />
+        <ProductList products={searchResult} addToCart={addToCart}/>
     </div>
   )
 }
