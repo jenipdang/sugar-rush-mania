@@ -28,7 +28,7 @@ const Cart = ({ cart, setCart, addToCart, removeFromCart, products }) => {
 			}
 		});
 	};
-
+  console.log("CART Page")
 	console.log(cart);
 	return (
 		<section className='container'>
