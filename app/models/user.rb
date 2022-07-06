@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :orders, through: :hosted_events
   has_many :reviews
   has_many :reviewed_products, through: :reviews, source: :product
-  has_many :cart_products
+  has_many :cart_products, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true, format: {with: /\A(?<username>[^@\s]+)@((?<domain_name>[-a-z0-9]+)\.(?<domain>[a-z]{2,}))\z/i}
   validates :username, presence: true, length: {in: 6..25}

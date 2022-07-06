@@ -14,6 +14,7 @@ import { UserContext } from "./context/user";
 import Profile from "./pages/Profile";
 import Cart from './pages/Cart'
 import FeatureProduct from "./pages/FeatureProduct";
+import EventForm from "./pages/EventForm";
 
 
 function App() {
@@ -21,8 +22,7 @@ function App() {
   const [cart, setCart] = useState([])
   const [errors, setErrors] = useState([])
   const [products, setProducts] = useState([])
-  const [search, setSearch] = useState('')
-  const [searchResult, setSearchResult] = useState([])
+
 
   useEffect(() => {
     fetch("/api/me").then((r) => {
@@ -109,7 +109,6 @@ useEffect(() => {
 	// 	})
   //   .catch((err) => setErrors((err.errors)))
 	//   }
-
   
   return (
     <>
@@ -139,6 +138,9 @@ useEffect(() => {
           </Route>
           <Route path="/cart">
             <Cart onAdd={addToCart} onRemove={removeFromCart} cart={cart} setCart={setCart} products={products}/>
+          </Route>
+          <Route path="/event/new">
+            <EventForm user={user} />
           </Route>
           <Route path="/about">
             <About />

@@ -16,18 +16,19 @@ class Api::OrdersController < ApplicationController
 
     #GET "/orders/:id"
     def show 
-        render json: @order
+        render json: current_user.orders
     end
 
+
+    #DID NOT HIT THIS BYEBUG => HIT DEBUGGER IN THE FRONTEND
     def create
-        @order = Order.new(order_params)
-        @current_cart.cart_products.each do |product|
-            @order.cart_products << product
-            product.cart_id = nil
+        event = Event.find_by!(params[:event_id])
+        byebug
+        order = Order.create!(user_id: params[:user_id], event: event)
+        current_user.cart_products.each do |cart_product|
+            purchase.products << cart_product.product
+            # cart_product.destroy
         end
-        @order.save
-        Cart.destroy(session[:cart_id])
-        sesson[:cart_id] = nil
     end
 
 
@@ -51,7 +52,7 @@ class Api::OrdersController < ApplicationController
     end
 
     def order_params
-        params.require(:order).permit(:event_id, :user_id)
+        params.permit(:event_id, :user_id)
     end
 
     # def check_admin

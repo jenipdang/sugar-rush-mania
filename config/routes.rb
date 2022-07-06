@@ -12,14 +12,16 @@ Rails.application.routes.draw do
     get "/me", to: "users#show"
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
+    post "/checkout", to: "orders#create"
+    # get "/purchased_products", to: "orders#show"
 
    
-   
-
     resources :reviews, only: [:index]
     resources :orders, only: [:update, :destroy, :show]
 
-    resources :events do 
+    resources :users do
+      resources :events, only: [:index, :show, :create] do
+      end
       resources :orders, shallow: true
     end
     

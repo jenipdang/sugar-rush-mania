@@ -15,8 +15,7 @@ before_action :check_admin, only: [:update, :destroy]
 
   #POST "/events"
   def create
-      @event = current_user.events.create!(event_params)
-      Order.create(event: @event, product: product, quantity: params[:quantity])
+      @event = current_user.hosted_events.create!(event_params)
       render json: @event, status: :created
   end
 
@@ -40,7 +39,7 @@ before_action :check_admin, only: [:update, :destroy]
     end
 
     def event_params
-      params.permit(:name, :datetime, :location, images_url: [])
+      params.permit(:name, :datetime, :location, :address)
     end
 
     def check_admin
