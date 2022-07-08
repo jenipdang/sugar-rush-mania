@@ -26,25 +26,30 @@ const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
 		history.push('/products');
 	};
 
-	// const reduceQuantity = (id) => {
-	// 	fetch(`/api/cart_products/${id}`, {
-	// 		method: "PATCH",
-	// 		headers: {
-	// 			"Content-Type": "application/json"
-	// 		},
-	// 		body: JSON.stringify(updateQuantity)
-	// 	}).then((r) => {
-	// 		if (r.ok) {
-	// 			r.json().then((cart_products) => setCart(cart_products))
-	// 		}
-	// 		else {
-	// 			r.json().then((err) => setErrors(err.errors))
-	// 		}
-	// 	})
-	// }
+	const reduceQuantity = (proc) => {
+		const newQuantity = proc.item_quantity - 1 
+
+		fetch(`/api/cart_products/${proc.id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				product_id: proc.id,
+				user_id: user.id,
+				quantity: newQuantity
+			})
+		}).then((r) => {
+			if (r.ok) {
+				r.json().then((cart_products) => setCart(cart_products))
+			}
+			else {
+				r.json().then((err) => setErrors(err.errors))
+			}
+		})
+	}
 
 	function handleCheckout() {
-		debugger;
 		fetch('/api/checkout', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -73,7 +78,7 @@ const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
 					</h2>
 				)}
 			</div>
-			{cart.map((product) => {
+			{cart?.map((product) => {
 				const proc = products.find((item) => item.id === product.product_id);
 				console.log(proc)
 				return (
@@ -93,7 +98,7 @@ const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
 							<div className='amount'>
 								<button
 									className='btn'
-									// onClick={() => reduceQuantity(proc.id)}
+									onClick={() => reduceQuantity(proc)}
 								>
 									{' '}
 									-{' '}

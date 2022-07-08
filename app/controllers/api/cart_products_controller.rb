@@ -24,7 +24,7 @@ class Api::CartProductsController < ApplicationController
       def update
         cart_product = current_user.cart_products.find_by!(product_id: params[:product_id])
         cart_product.update(quantity: params[:quantity])
-        render json: curren_user.cart_products, status: :created 
+        render json: current_user.cart_products, status: :created 
       end
 
 

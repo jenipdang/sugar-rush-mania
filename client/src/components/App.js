@@ -15,11 +15,12 @@ import Profile from "./pages/Profile";
 import Cart from './pages/Cart'
 import FeatureProduct from "./pages/FeatureProduct";
 import EventForm from "./pages/EventForm";
+// import { CartContext } from "./context/cart";
 
 
 function App() {
   const { user, setUser } = useContext(UserContext)
-  const [cart, setCart] = useState([])
+  const [ cart, setCart ] = useState([])
   const [errors, setErrors] = useState([])
   const [products, setProducts] = useState([])
 
@@ -87,7 +88,6 @@ useEffect(() => {
 		})
     .catch((err) => setErrors((err.errors)))
 	}
-
   
   return (
     <>

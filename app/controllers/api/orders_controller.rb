@@ -23,10 +23,9 @@ class Api::OrdersController < ApplicationController
     #DID NOT HIT THIS BYEBUG => HIT DEBUGGER IN THE FRONTEND
     def create
         event = Event.find_by!(params[:event_id])
-        byebug
         order = Order.create!(user_id: params[:user_id], event: event)
         current_user.cart_products.each do |cart_product|
-            purchase.products << cart_product.product
+            order.products << cart_product.product
             # cart_product.destroy
         end
     end
