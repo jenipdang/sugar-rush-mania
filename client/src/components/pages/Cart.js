@@ -65,7 +65,7 @@ const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
 
 	console.log(cart)
 	return (
-		<section className='container'>
+		<section className='card details'>
 			<div className='text '>
 				{cart?.length === 0 && (
 					<h2 style={{ textAlign: 'center', marginBottom: '1rem' }}>
@@ -77,13 +77,13 @@ const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
 				const proc = products.find((item) => item.id === product.product_id);
 				console.log(proc)
 				return (
-					<div className='container details' key={proc?.id}>
+					<div className='details' key={proc?.id}>
 						<img
 							style={{ width: '200px', height: '200px' }}
 							src={proc?.image_url}
 							alt={proc?.name}
 						/>
-						<div className='details box'>
+						<div className='proc-detail' style={{width: "760px", height: "200px"}}>
 							<div className='row'>
 								<h2>{proc?.name}</h2>
 								<span>${proc?.price}</span>
@@ -106,6 +106,7 @@ const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
 									{' '}
 									+{' '}
 								</button>
+								<span> Item Subtotal: ${proc?.item_total}</span>
 							</div>
 						</div>
 						<button className='btn'
@@ -120,7 +121,6 @@ const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
 					<>
 						<form onSubmit={handleCheckout}>
 							<DropdownButton
-								alignRight
 								title='Event List'
 								id='dropdown-menu-align-right'
 								onSelect={handleSelect}
@@ -136,11 +136,11 @@ const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
 									<Error key={err}>{err}</Error>
 								))}
 							</FormField>
-							<div className='btn'>
+							<div className='buttons'>
 								<Button color='primary' type='submit'>
 									{isLoading ? 'Loading...' : 'CHECK OUT'}
 								</Button>
-								<Button
+								<Button className='ms-2'
 									color='primary'
 									onClick={handleClick}
 								>

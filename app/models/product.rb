@@ -18,6 +18,10 @@ class Product < ApplicationRecord
         self.cart_products.sum{|product| product.quantity}
     end
 
+    def item_total
+        (self.price) * item_quantity
+    end
+    
     # def ordered
     #     self.events.length
     # end
