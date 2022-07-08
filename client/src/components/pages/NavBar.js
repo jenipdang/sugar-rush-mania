@@ -20,6 +20,7 @@ function NavBar({cart}) {
       }
     });
   }
+  
 
   return (
     <Navbar className='navbar sticky-top mb-5' style={{ background: "linear-gradient(to right, #ddd6f3, #faaca8)"}} expand="lg">
@@ -40,12 +41,15 @@ function NavBar({cart}) {
           <Nav.Link href="/contact">Contact Us</Nav.Link>
         </Nav>
         <Nav className="d-flex" style={{ paddingRight: '30px'}}>
-          <Nav.Link href='/cart'>{cart ? cart.length > 0 : null}<AiOutlineShoppingCart style={{fontSize: '23px'}} /></Nav.Link>
         {!user ? (
             <Nav.Link href="/account">Sign In</Nav.Link>
           ): null}
         {user ? (
         <>
+          <Nav.Link href='/cart'>
+            {cart?.length > 0 ? cart?.length : null}
+            <AiOutlineShoppingCart style={{fontSize: '23px'}} />
+            </Nav.Link>
           <NavDropdown title={user.username} id="navbarScrollingDropdown" style={{marginRight: '40px'}}>
             <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
             {user.role === "admin" ? (

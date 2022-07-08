@@ -15,15 +15,17 @@ import Profile from "./pages/Profile";
 import Cart from './pages/Cart'
 import FeatureProduct from "./pages/FeatureProduct";
 import EventForm from "./pages/EventForm";
-// import { CartContext } from "./context/cart";
+import { MessageContext } from "./context/message";
+import { CartContext } from "./context/cart";
+
 
 
 function App() {
   const { user, setUser } = useContext(UserContext)
-  const [ cart, setCart ] = useState([])
+  const { cart, setCart } = useContext(CartContext)
   const [errors, setErrors] = useState([])
   const [products, setProducts] = useState([])
-
+  const { setMessage } = useContext(MessageContext)
 
   useEffect(() => {
     fetch("/api/me").then((r) => {
@@ -55,7 +57,8 @@ useEffect(() => {
   }
 }, [user])
 
-// fetch(`/api/users/${user.id}/cart_products?product_id=${product.id}`
+console.log(cart)
+
 
   function addToCart(product) {
 		fetch(`/api/users/${user.id}/cart_products?product_id=${product.id}`, {
@@ -68,7 +71,10 @@ useEffect(() => {
 			})
 		}).then((r) => {
 			if (r.ok) {
-				r.json().then((cart_products) => setCart(cart_products))
+				r.json().then((cart_products) => {
+          setCart(cart_products)
+          setMessage({message: "Succesfully add to cart", color: "green"})
+        })
 			}
 			else {
 				r.json().then((err) => setErrors(err.errors))
@@ -116,7 +122,7 @@ useEffect(() => {
             <Profile />
           </Route>
           <Route path="/cart">
-            <Cart onAdd={addToCart} onRemove={deleteFromCart} cart={cart} setCart={setCart} products={products}/>
+            <Cart onAdd={addToCart} onRemove={deleteFromCart} products={products}/>
           </Route>
           <Route path="/event/new">
             <EventForm user={user} />

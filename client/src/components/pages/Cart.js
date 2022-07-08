@@ -1,15 +1,18 @@
 import { useContext, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { UserContext } from '../context/user';
+import { CartContext } from '../context/cart';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { Error, FormField, Button } from '../../styles';
 
-const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
+
+const Cart = ({onRemove, onAdd, products }) => {
 	const [errors, setErrors] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const history = useHistory();
 	const { user } = useContext(UserContext);
 	const [value, setValue] = useState('');
+	const { cart, setCart } = useContext(CartContext)
 
 
 	const eventOption = user?.hosted_events?.map((hevent) => [
@@ -49,13 +52,18 @@ const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
 		})
 	}
 
+
 	function handleCheckout() {
+		debugger
 		fetch('/api/checkout', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
-				user_id: user.id,
+				order: {
+				// user_id: user.id,
 				event_id: value,
+				cart_product_id: cart.id
+				}
 			}),
 		}).then((r) => {
 			setIsLoading(false);
@@ -68,7 +76,7 @@ const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
 	}
 
 
-	console.log(cart)
+
 	return (
 		<section className='card details'>
 			<div className='text '>
@@ -80,7 +88,6 @@ const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
 			</div>
 			{cart?.map((product) => {
 				const proc = products.find((item) => item.id === product.product_id);
-				console.log(proc)
 				return (
 					<div className='details' key={proc?.id}>
 						<img
@@ -122,7 +129,7 @@ const Cart = ({ cart, setCart, onRemove, onAdd, products }) => {
 				);
 			})}
 			<div className='total'>
-				{cart.length !== 0 && (
+				{cart?.length !== 0 && (
 					<>
 						<form onSubmit={handleCheckout}>
 							<DropdownButton

@@ -1,8 +1,8 @@
 class Api::OrdersController < ApplicationController
     before_action :find_order, only: [:show, :update, :destroy]
-    # before_action :check_admin, except: [:index, :show]
   
   
+
     #GET "/orders" or GET "/events/:event_id/orders"
     def index 
         if params[:event_id]
@@ -23,26 +23,14 @@ class Api::OrdersController < ApplicationController
     #DID NOT HIT THIS BYEBUG => HIT DEBUGGER IN THE FRONTEND
     def create
         event = Event.find_by!(params[:event_id])
-        order = Order.create!(user_id: params[:user_id], event: event)
-        current_user.cart_products.each do |cart_product|
-            order.products << cart_product.product
+        # current_user.cart_products.each do | cart_product | 
+        order = current_user.orders.create(order_params)
+        byebug
+        # order.cart_products.each do |cart_product|
+        #     order.products << cart_product.product
             # cart_product.destroy
-        end
+        # end
     end
-
-
-    # #PATCH "/orders/:id"
-    # def update
-    #     @order&.update!(order_params)
-    #     render json: @order
-    # end
-
-    # #DELETE "/orders/:id"
-    # def destroy
-    #     @order&.destroy
-    #     render json: {message: "Successfully destroyed the order"}
-    # end
-
 
     private
 
@@ -51,10 +39,7 @@ class Api::OrdersController < ApplicationController
     end
 
     def order_params
-        params.permit(:event_id, :user_id)
+        params.require(:order).permit(:event_id, :cart_product_id)
     end
 
-    # def check_admin
-    # render json: { errors: ["Not Authorized"]}, status: :unauthorized unless @current_user.admin?
-    # end
 end

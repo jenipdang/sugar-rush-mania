@@ -12,6 +12,7 @@ import { AccountContext } from './accountContext';
 import { UserContext } from '../context/user';
 import { MessageContext } from '../context/message';
 import { FormField, Error } from '../../styles';
+import { useHistory } from 'react-router-dom'
 
 export function SignupForm() {
 	const { switchToSignin } = useContext(AccountContext);
@@ -23,6 +24,7 @@ export function SignupForm() {
 	const { onLogin } = useContext(UserContext)
 	const { setMessage } = useContext(MessageContext)
 	const [errors, setErrors] = useState([]);
+	const history = useHistory()
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -43,7 +45,8 @@ export function SignupForm() {
 			if (r.ok) {
 				r.json().then((user) => {
 					onLogin(user)
-					setMessage({message: "Successfully logged out.", color: "green"})
+					setMessage({message: "Successfully create an account.", color: "green"})
+					history.push('/products')
 				});
 			} else {
 				r.json().then((err) => setErrors(err.errors));
