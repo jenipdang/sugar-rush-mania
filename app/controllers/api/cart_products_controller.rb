@@ -21,23 +21,25 @@ class Api::CartProductsController < ApplicationController
           render json: current_user.cart_products, status: :created
       end
 
-    #   def update
-    #     cart_product = current_user.cart_products.find_by(product_id: params[:product_id])
-    #     if cart_product.quantity > 1
-    #        cart_product.quantity -= 1
-    #     end
-    #     cart_product.save
-    #     render json: current_user.cart_products, status: :created
-    #   end
+      def update
+        cart_product = current_user.cart_products.find_by!(product_id: params[:product_id])
+        cart_product.update(quantity: params[:quantity])
+        render json: curren_user.cart_products, status: :created 
+      end
 
-    
+
       def destroy
-          cart_product = current_user.cart_products.find_by(product_id: params[:id])
-          cart_product.destroy
+          cart_product = current_user.cart_products.find_by!(product_id: params[:id])
+          cart_product.delete
           render json: { message: "Item successfully removed"}
       end
     
       private
+
+    #   def find_cart_product
+    #     cart_product = current_user.cart_products.find_by(product_id: params[:product_id])
+    #   end
+      
       def cart_product_params
       params.permit(:product_id, :user_id, :quantity)
       end

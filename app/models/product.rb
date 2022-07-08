@@ -14,6 +14,10 @@ class Product < ApplicationRecord
         Rails.application.routes.url_helpers.url_for(image) if image.attached? 
     end
 
+    def item_quantity
+        self.cart_products.sum{|product| product.quantity}
+    end
+
     # def ordered
     #     self.events.length
     # end

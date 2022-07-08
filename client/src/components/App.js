@@ -38,7 +38,6 @@ function App() {
     .then((r) => r.json())
     .then((data) => {
         setProducts(data)
-        // console.log(data)
     })
     .catch((err) => setErrors(err.errors))
 }, [])
@@ -67,7 +66,6 @@ useEffect(() => {
 				quantity: 1
 			})
 		}).then((r) => {
-      console.log(product)
 			if (r.ok) {
 				r.json().then((cart_products) => setCart(cart_products))
 			}
@@ -77,15 +75,12 @@ useEffect(() => {
 		})
 	}
 
-  console.log("This is from APP:")
-  console.log(cart)
-
-  function removeFromCart(productId) { 
-		fetch(`api/cart_products/${productId}`, {
+  function deleteFromCart(id) { 
+		fetch(`/api/cart_products/${id}`, {
 			method: "DELETE"
 		}).then((r) => {
 			if (r.ok) {
-				setCart([...cart].filter((product) => product.product_id !== productId))
+				setCart([...cart].filter((product) => product.product_id !== id))
 			} else {
 				r.json().then((err) => setErrors(err.errors))
 			}
@@ -93,22 +88,6 @@ useEffect(() => {
     .catch((err) => setErrors((err.errors)))
 	}
 
-  // function reduceQuantity(productId) {
-  //   fetch(`api/cart_products/${productId}`, {
-	// 		method: "PATCH",
-  //     headers: {
-  //       "Content-Type": 'application/json',
-  //     },
-  //     body: JSON.stringify({quanity: -1})
-	// 	}).then((r) => {
-	// 		if (r.ok) {
-	// 			setCart([...cart].filter((product) => product.product_id !== productId))
-	// 		} else {
-	// 			r.json().then((err) => setErrors(err.errors))
-	// 		}
-	// 	})
-  //   .catch((err) => setErrors((err.errors)))
-	//   }
   
   return (
     <>
@@ -137,7 +116,7 @@ useEffect(() => {
             <Profile />
           </Route>
           <Route path="/cart">
-            <Cart onAdd={addToCart} onRemove={removeFromCart} cart={cart} setCart={setCart} products={products}/>
+            <Cart onAdd={addToCart} onRemove={deleteFromCart} cart={cart} setCart={setCart} products={products}/>
           </Route>
           <Route path="/event/new">
             <EventForm user={user} />

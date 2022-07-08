@@ -13,9 +13,8 @@ Rails.application.routes.draw do
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
     post "/checkout", to: "orders#create"
-    # get "/purchased_products", to: "orders#show"
-
-   
+  
+  
     resources :reviews, only: [:index]
     resources :orders, only: [:update, :destroy, :show]
 

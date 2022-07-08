@@ -6,6 +6,7 @@ import { ImLocation } from 'react-icons/im'
 import { GrMail } from 'react-icons/gr'
 
 
+
   const Container = styled.div`
     display: flex;
   `;
