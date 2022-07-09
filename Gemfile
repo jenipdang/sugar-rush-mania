@@ -42,3 +42,7 @@ gem "active_model_serializers", "~> 0.10.12"
 gem "image_processing", ">= 1.2"
 
 gem 'active_storage_validations'
+
+gem 'aws-sdk-s3'
+
+gem 'dotenv-rails'

@@ -2,8 +2,6 @@ class Api::OrdersController < ApplicationController
     before_action :find_order, only: [:show, :update, :destroy]
   
   
-
-    #GET "/orders" or GET "/events/:event_id/orders"
     def index 
         if params[:event_id]
             event = Event.find(params[:event_id])
@@ -14,22 +12,20 @@ class Api::OrdersController < ApplicationController
 
     end
 
-    #GET "/orders/:id"
     def show 
         render json: current_user.orders
     end
 
 
-    #DID NOT HIT THIS BYEBUG => HIT DEBUGGER IN THE FRONTEND
     def create
         event = Event.find_by!(params[:event_id])
-        # current_user.cart_products.each do | cart_product | 
-        order = current_user.orders.create(order_params)
-        byebug
-        # order.cart_products.each do |cart_product|
-        #     order.products << cart_product.product
+        current_user.cart_products.each do | cart_product | 
+            byebug
+            Order.create(user_id: params[:user_id], product_id: cart_product.product_id, event_id: event)
+        
             # cart_product.destroy
-        # end
+        end
+        
     end
 
     private
@@ -38,8 +34,8 @@ class Api::OrdersController < ApplicationController
         @order = Order.find(params[:id])
     end
 
-    def order_params
-        params.require(:order).permit(:event_id, :cart_product_id)
-    end
+    # def order_params
+    #     params.require(:order).permit(:event_id, :user_id)
+    # end
 
 end

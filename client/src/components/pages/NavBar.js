@@ -6,17 +6,20 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { MessageContext } from '../context/message'
 import { UserContext } from '../context/user';
 import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { useHistory } from 'react-router-dom'
 
 
 function NavBar({cart}) {
   const { user, setUser } = useContext(UserContext)
   const { setMessage } = useContext(MessageContext)
+  const history = useHistory()
 
    function handleLogoutClick() {
     fetch("/api/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
         setMessage({message: "Successfuly logged out", color: "green"})
         setUser(null);
+        history.push('/products')
       }
     });
   }

@@ -10,11 +10,10 @@ import { MessageContext } from '../context/message';
 import { UserContext } from '../context/user';
 import { MdOutlineExpandMore, MdOutlineExpandLess } from 'react-icons/md'
 
-const Product = ({ product, onAdd }) => {
+const Product = ({ product, onAdd, isLoading }) => {
 	const [productObj, setProductObj] = useState(null);
 	const [reviews, setReviews] = useState([]);
 	const [isEditing, setIsEditing] = useState(false);
-	const [isLoading, setIsLoading] = useState(false)
 	const { productId } = useParams();
 	const location = useLocation();
 	const history = useHistory();

@@ -17,7 +17,7 @@ import FeatureProduct from "./pages/FeatureProduct";
 import EventForm from "./pages/EventForm";
 import { MessageContext } from "./context/message";
 import { CartContext } from "./context/cart";
-
+import Contact from './pages/Contact'
 
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
   const [errors, setErrors] = useState([])
   const [products, setProducts] = useState([])
   const { setMessage } = useContext(MessageContext)
+  const [isLoading, setIsLoading] = useState('')
 
   useEffect(() => {
     fetch("/api/me").then((r) => {
@@ -55,7 +56,7 @@ useEffect(() => {
       })
       .catch((err) => setErrors(err.errors))
   }
-}, [user])
+}, [user, setCart])
 
 console.log(cart)
 
@@ -103,6 +104,9 @@ console.log(cart)
           <Route path="/home">
             <FeatureProduct />
           </Route>
+          <Route path="/contact">
+            <Contact loading={isLoading}/>
+          </Route>
           <Route path="/products/new">
             <NewProduct />
           </Route>
@@ -113,7 +117,7 @@ console.log(cart)
             <Review />
           </Route>
           <Route path="/products/:productId">
-            <Product onAdd={addToCart}/>
+            <Product onAdd={addToCart} isLoading={isLoading}/>
           </Route>
           <Route path="/products">
             <ProductContainer onAdd={addToCart} />

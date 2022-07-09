@@ -1,19 +1,21 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { UserContext } from '../context/user';
 import { CartContext } from '../context/cart';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
-import { Error, FormField, Button } from '../../styles';
+import { Error, FormField, Button, Label, Input } from '../../styles';
+import emailjs from '@emailjs/browser';
+import { MessageContext } from '../context/message';
 
-
-const Cart = ({onRemove, onAdd, products }) => {
+const Cart = ({ onRemove, onAdd, products }) => {
 	const [errors, setErrors] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const history = useHistory();
 	const { user } = useContext(UserContext);
 	const [value, setValue] = useState('');
-	const { cart, setCart } = useContext(CartContext)
-
+	const { cart, setCart } = useContext(CartContext);
+	const { setMessage } = useContext(MessageContext)
+	const form = useRef();
 
 	const eventOption = user?.hosted_events?.map((hevent) => [
 		<Dropdown.Item key={hevent.id} eventKey={hevent.id} value={hevent}>
@@ -30,40 +32,57 @@ const Cart = ({onRemove, onAdd, products }) => {
 	};
 
 	const reduceQuantity = (proc) => {
-		const newQuantity = proc.item_quantity - 1 
+		const newQuantity = proc.item_quantity - 1;
 
 		fetch(`/api/cart_products/${proc.id}`, {
-			method: "PATCH",
+			method: 'PATCH',
 			headers: {
-				"Content-Type": "application/json"
+				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
 				product_id: proc.id,
 				user_id: user.id,
-				quantity: newQuantity
-			})
+				quantity: newQuantity,
+			}),
 		}).then((r) => {
 			if (r.ok) {
-				r.json().then((cart_products) => setCart(cart_products))
+				r.json().then((cart_products) => setCart(cart_products));
+			} else {
+				r.json().then((err) => setErrors(err.errors));
 			}
-			else {
-				r.json().then((err) => setErrors(err.errors))
-			}
-		})
-	}
+		});
+	};
+	const sendEmail = (e) => {
+		e.preventDefault();
 
+		emailjs
+			.sendForm(
+				process.env.REACT_APP_EMAILJS_SERVICE_ID,
+				process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+				form.current,
+				process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+			)
+			.then(
+				(result) => {
+					console.log(result.text);
+					setMessage({ message: `Order confirmed. Order confirmation was sent to ${user?.email}`, color: 'green' });
+				},
+				(error) => {
+					console.log(error.text);
+				}
+			);
+	};
 
 	function handleCheckout() {
-		debugger
+		debugger;
 		fetch('/api/checkout', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
 				order: {
-				// user_id: user.id,
-				event_id: value,
-				cart_product_id: cart.id
-				}
+					user_id: user.id,
+					event_id: value,
+				},
 			}),
 		}).then((r) => {
 			setIsLoading(false);
@@ -74,8 +93,6 @@ const Cart = ({onRemove, onAdd, products }) => {
 			}
 		});
 	}
-
-
 
 	return (
 		<section className='card details'>
@@ -95,7 +112,10 @@ const Cart = ({onRemove, onAdd, products }) => {
 							src={proc?.image_url}
 							alt={proc?.name}
 						/>
-						<div className='proc-detail' style={{width: "760px", height: "200px"}}>
+						<div
+							className='proc-detail'
+							style={{ width: '760px', height: '200px' }}
+						>
 							<div className='row'>
 								<h2>{proc?.name}</h2>
 								<span>${proc?.price}</span>
@@ -103,27 +123,23 @@ const Cart = ({onRemove, onAdd, products }) => {
 							<p>{proc?.description}</p>
 							<br />
 							<div className='amount'>
-								<button
-									className='btn'
-									onClick={() => reduceQuantity(proc)}
-								>
+								<button className='btn' onClick={() => reduceQuantity(proc)}>
 									{' '}
 									-{' '}
 								</button>
-								<span style={{fontWeight: "14px", margin: "5px"}}>{proc?.item_quantity}</span>
-								<button
-									className='btn'
-									onClick={() => onAdd(proc)}
-								>
+								<span style={{ fontWeight: '14px', margin: '5px' }}>
+									{proc?.item_quantity}
+								</span>
+								<button className='btn' onClick={() => onAdd(proc)}>
 									{' '}
 									+{' '}
 								</button>
 								<span> Item Subtotal: ${proc?.item_total}</span>
 							</div>
 						</div>
-						<button className='btn'
-							onClick={() => onRemove(proc.id)}
-							> X
+						<button className='btn' onClick={() => onRemove(proc.id)}>
+							{' '}
+							X
 						</button>
 					</div>
 				);
@@ -131,7 +147,8 @@ const Cart = ({onRemove, onAdd, products }) => {
 			<div className='total'>
 				{cart?.length !== 0 && (
 					<>
-						<form onSubmit={handleCheckout}>
+						<form ref={form} onSubmit={sendEmail}>
+							<FormField>
 							<DropdownButton
 								title='Event List'
 								id='dropdown-menu-align-right'
@@ -143,23 +160,28 @@ const Cart = ({onRemove, onAdd, products }) => {
 									New Event
 								</Dropdown.Item>
 							</DropdownButton>
+							</FormField>
+							<FormField>
+								<Label>Name</Label>
+								<Input type='text' name='user_name' value={user?.username}/>
+							</FormField>
+							<FormField>
+								<Label>Email</Label>
+								<Input type='email' name='user_email' value={user?.email}/>
+							</FormField>
 							<FormField>
 								{errors?.map((err) => (
 									<Error key={err}>{err}</Error>
 								))}
 							</FormField>
-							<div className='buttons'>
-								<Button color='primary' type='submit'>
-									{isLoading ? 'Loading...' : 'CHECK OUT'}
-								</Button>
-								<Button className='ms-2'
-									color='primary'
-									onClick={handleClick}
-								>
-									CONTINUE SHOPPING
-								</Button>
-							</div>
+							<Button color='primary' type='submit' onClick={handleCheckout}>
+								{isLoading ? 'Loading...' : 'CHECK OUT'}
+							</Button>
 						</form>
+					
+						<Button className='mt-3' color='primary' onClick={handleClick}>
+							CONTINUE SHOPPING
+						</Button>
 					</>
 				)}
 			</div>

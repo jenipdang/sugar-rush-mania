@@ -20,7 +20,7 @@ const ProductContainer = ({onAdd, prods}) => {
           })
           .catch((err) => setErrors(err.errors))
         }
-    }, [])
+    }, [prods])
 
     const filterProducts = (categoryItem) => {
       if (categoryItem === 'All') {

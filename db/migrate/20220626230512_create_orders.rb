@@ -3,7 +3,7 @@ class CreateOrders < ActiveRecord::Migration[6.1]
     create_table :orders do |t|
       t.references :event
       t.references :user
-      t.references :cart_product
+      t.references :product
 
       t.timestamps
     end
