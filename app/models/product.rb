@@ -26,13 +26,6 @@ class Product < ApplicationRecord
         self.events.uniq.length
     end
 
-    # def self.cart_total
-    #     self.all.sum{|p| p.item_total}
-    # end
-
-    # def total_reviwers
-    #     self.reviewers.uniq.length
-    # end
 
     def self.most_popular
         self.joins(:orders).group("products.id").order("count(products.id) desc").limit(3)
