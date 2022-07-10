@@ -147,8 +147,7 @@ const Cart = ({ onRemove, onAdd, products }) => {
 			<div className='total'>
 				{cart?.length !== 0 && (
 					<>
-						{/* <form ref={form} onSubmit={sendEmail}> */}
-						<form>
+						<form ref={form} onSubmit={sendEmail}>
 							<FormField>
 							<DropdownButton
 								title='Event List'
