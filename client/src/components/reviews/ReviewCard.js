@@ -52,24 +52,24 @@ const ReviewCard = ({ review }) => {
 		<div className='container'>
 			{!isEditing ? (
 				<>
-				<div className='rev-card' style={{textAlign: 'center', padding: '10px', margin: '50px'}} key={finalReview.id}>
+				<div className='rev-card' style={{textAlign: 'center', padding: '10px', margin: '50px'}} key={finalReview?.id}>
                 <Link style={{
 					textDecoration: 'none',
 					color: 'red',
 				}}
-				to={`/reviews/${finalReview.id}`}>
+				to={`/reviews/${finalReview?.id}`}>
 					<h5>
-						{finalReview.title} - rating: {finalReview.rating} of 5
+						{finalReview?.title} - rating: {finalReview.rating} of 5
 					</h5>
                 </Link>
 					<p>
-						<em>{finalReview.content}</em>
+						<em>{finalReview?.content}</em>
 					</p>
 					<p>
-						- {finalReview.post_by} <MdOutlineVerified /> -
+						- {finalReview?.post_by} <MdOutlineVerified /> -
 					</p>
                 {
-					(!isEditing && location.pathname.includes("/reviews")) && (user.post_by === finalReview.post_by || user?.role === "admin") ? (
+					(!isEditing && location.pathname.includes("/reviews")) && (user?.username === finalReview?.post_by || user?.role === "admin") ? (
 						<div className='actions'>
                             <button onClick={() => setIsEditing((isEditing) => !isEditing)} style={{border: "none", backgroundColor: "white"}}>
                                 <span aria-label='edit'>

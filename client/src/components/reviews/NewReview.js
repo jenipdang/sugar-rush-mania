@@ -10,13 +10,11 @@ const NewReview = ({productId}) => {
       content: "",
       rating: "",
       event_id: "",
-      image: ""
     })
     const { setMessage } = useContext(MessageContext)
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState([]);
     const history = useHistory()
-    const [image, setImage] = useState()
  
 
     const handleChange = (e) => {
@@ -26,12 +24,6 @@ const NewReview = ({productId}) => {
       })
     }
 
-    const onImageChange = (e) => {
-      setImage({
-        ...image, 
-        [e.target.name]: e.target.files[0]
-      })
-    }
 
     const handleSubmit = (e) => {
       e.preventDefault()
@@ -48,7 +40,7 @@ const NewReview = ({productId}) => {
         if (r.status === 201) {
           r.json()
           .then(review => {
-            setReview({title: review.title, content: review.content, rating: review.rating, event_id: review.event_id, image: review.image})
+            setReview({title: review.title, content: review.content, rating: review.rating, event_id: review.event_id})
             setMessage({message: "Review successfully added", color: "green"})
             history.push('/products')
           })
@@ -100,9 +92,6 @@ const NewReview = ({productId}) => {
                 placeholder='Enter your event order #'
               />
             </FormField>
-            <FormField>
-						  <Input type='file' name='image' id='image' value={review.image} onChange={onImageChange}/>
-					  </FormField>
             <FormField>
               <Button onClick={handleSubmit} color='primary' type='submit'>
                 {isLoading ? 'Loading...' : 'Submit'}

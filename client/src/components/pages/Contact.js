@@ -1,13 +1,16 @@
 import { useContext, useRef } from 'react';
+import {useHistory} from 'react-router-dom'
 import emailjs from '@emailjs/browser';
 import styled from 'styled-components';
 import { Button, FormField, Input, Label, Textarea } from '../../styles';
+
 import { MessageContext } from '../context/message';
 
 
 const Contact = ({ loading }) => {
   const { setMessage } = useContext(MessageContext)
 	const form = useRef();
+	const history = useHistory()
 
 	const sendEmail = (e) => {
 		e.preventDefault();
@@ -17,7 +20,8 @@ const Contact = ({ loading }) => {
 			.then(
 				(result) => {
 					console.log(result.text)
-          setMessage({message: "Message successfully sent", color: "green"})
+          			setMessage({message: "Message successfully sent", color: "green"})
+					history.push('/products')
 				},
 				(error) => {
 					console.log(error.text);

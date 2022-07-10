@@ -126,13 +126,7 @@ const Profile = () => {
 						<ul>
 						{user.orders?.map((order) => (
 										<li key={order.id}>
-											<p className='userShowInfoTitle'>{order.event_name} || {order.product_list?.map((Oproduct, index) => {
-												return (
-													<ul key={index}>
-														<li key={Oproduct.name} id={Oproduct.name}>{Oproduct}</li>
-													</ul>
-												)
-											})}
+											<p className='userShowInfoTitle'>{order.event_name} || {order.sweet_name}
 											{/* || total order: {currencyFormat(order.total_order)} */}
 											</p> 
 										</li>

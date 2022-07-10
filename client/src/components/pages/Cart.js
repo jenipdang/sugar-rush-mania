@@ -74,7 +74,6 @@ const Cart = ({ onRemove, onAdd, products }) => {
 	};
 
 	function handleCheckout() {
-		debugger;
 		fetch('/api/checkout', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -135,7 +134,7 @@ const Cart = ({ onRemove, onAdd, products }) => {
 									+{' '}
 								</button>
 								<span> Item Subtotal: ${proc?.item_total}</span>
-							</div>
+							</div>.
 						</div>
 						<button className='btn' onClick={() => onRemove(proc.id)}>
 							{' '}
