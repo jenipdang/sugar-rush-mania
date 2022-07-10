@@ -15,8 +15,9 @@ before_action :check_admin, only: [:update, :destroy]
 
   #POST "/events"
   def create
-      @event = current_user.hosted_events.create!(event_params)
-      render json: @event, status: :created
+    byebug
+      event = current_user.hosted_events.create!(event_params)
+      render json: event, status: :created
   end
 
   #PATCH "/events/:id"
@@ -39,7 +40,7 @@ before_action :check_admin, only: [:update, :destroy]
     end
 
     def event_params
-      params.permit(:name, :datetime, :location, :address)
+      params.require(:event).permit(:name, :datetime, :location, :address)
     end
 
     def check_admin

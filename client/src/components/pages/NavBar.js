@@ -45,7 +45,7 @@ function NavBar({cart}) {
         </Nav>
         <Nav className="d-flex" style={{ paddingRight: '30px'}}>
         {!user ? (
-            <Nav.Link href="/account">Sign In</Nav.Link>
+            <Nav.Link href="/account">Sign In/Sign Up To Order</Nav.Link>
           ): null}
         {user ? (
         <>

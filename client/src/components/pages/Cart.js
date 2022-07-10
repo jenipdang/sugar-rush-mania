@@ -24,12 +24,14 @@ const Cart = ({ onRemove, onAdd, products }) => {
 	]);
 
 	const handleSelect = (e) => {
-		setValue(e);
+		setValue(Number(e));
 	};
 
 	const handleClick = () => {
 		history.push('/products');
 	};
+
+	console.log(value)
 
 	const reduceQuantity = (proc) => {
 		const newQuantity = proc.item_quantity - 1;
@@ -74,14 +76,13 @@ const Cart = ({ onRemove, onAdd, products }) => {
 	};
 
 	function handleCheckout() {
+		debugger
 		fetch('/api/checkout', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
-				order: {
-					user_id: user.id,
-					event_id: value,
-				},
+				user_id: user.id,
+				event_id: value
 			}),
 		}).then((r) => {
 			setIsLoading(false);
@@ -146,7 +147,8 @@ const Cart = ({ onRemove, onAdd, products }) => {
 			<div className='total'>
 				{cart?.length !== 0 && (
 					<>
-						<form ref={form} onSubmit={sendEmail}>
+						{/* <form ref={form} onSubmit={sendEmail}> */}
+						<form>
 							<FormField>
 							<DropdownButton
 								title='Event List'

@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { MdOutlineSignalCellularNodata } from 'react-icons/md';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Button, Error, FormField, Input, Label } from '../../styles';
@@ -65,7 +66,7 @@ const EventForm = () => {
 							message: 'Successfully update the product information',
 							color: 'green',
 						});
-						setEvent([...data, data]);
+						setEvent([...orgData, data]);
 					});
 					history.push('/cart');
 				} else {

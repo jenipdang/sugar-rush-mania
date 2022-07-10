@@ -2,12 +2,14 @@ import {useState, useEffect } from 'react'
 import ProductList from './ProductList'
 import Search from './Search'
 import Filter from './Filter'
+import { useContext } from 'react'
+import { MessageContext } from '../context/message'
 
 const ProductContainer = ({onAdd, prods}) => {
     const [products, setProducts ] = useState([])
     const [search, setSearch] = useState('')
     const [searchResult, setSearchResult] = useState([])
-    const [errors, setErrors] = useState([])
+    const { setMessage } = useContext(MessageContext)
 
   
     useEffect(() => {
@@ -18,9 +20,9 @@ const ProductContainer = ({onAdd, prods}) => {
               setProducts(data)
               setSearchResult(data)
           })
-          .catch((err) => setErrors(err.errors))
+          .catch((err) => setMessage({message: err.errors, color: 'red'}))
         }
-    }, [prods])
+    }, [prods, setMessage])
 
     const filterProducts = (categoryItem) => {
       if (categoryItem === 'All') {

@@ -23,7 +23,6 @@ import Contact from './pages/Contact'
 function App() {
   const { user, setUser } = useContext(UserContext)
   const { cart, setCart } = useContext(CartContext)
-  const [errors, setErrors] = useState([])
   const [products, setProducts] = useState([])
   const { setMessage } = useContext(MessageContext)
   const [isLoading, setIsLoading] = useState('')
@@ -43,8 +42,8 @@ function App() {
     .then((data) => {
         setProducts(data)
     })
-    .catch((err) => setErrors(err.errors))
-}, [])
+    .catch((err) => setMessage({message: err.errors, color: 'red'}))
+}, [setMessage])
 
 
 useEffect(() => {
@@ -54,14 +53,13 @@ useEffect(() => {
       .then((cart_products) => {
         setCart(cart_products)
       })
-      .catch((err) => setErrors(err.errors))
+      .catch((err) => setMessage({message: err.errors, color: 'red'}))
   }
-}, [user, setCart])
-
-console.log(cart)
+}, [user, setCart, setMessage])
 
 
   function addToCart(product) {
+    setIsLoading(true)
 		fetch(`/api/users/${user.id}/cart_products?product_id=${product.id}`, {
 			method: "POST",
 			headers: { "Content-Type": "applicaiton/json"},
@@ -78,7 +76,7 @@ console.log(cart)
         })
 			}
 			else {
-				r.json().then((err) => setErrors(err.errors))
+				r.json().then((err) => setMessage({message: err.errors, color: 'red'}))
 			}
 		})
 	}
@@ -90,10 +88,10 @@ console.log(cart)
 			if (r.ok) {
 				setCart([...cart].filter((product) => product.product_id !== id))
 			} else {
-				r.json().then((err) => setErrors(err.errors))
+				r.json().then((err) => setMessage({message: err.errors, color: 'red'}))
 			}
 		})
-    .catch((err) => setErrors((err.errors)))
+    .catch((err) => setMessage({message: err.errors, color: 'red'}))
 	}
   
   return (

@@ -4,11 +4,11 @@ import { useContext, useEffect, useState } from 'react';
 import NewReview from '../reviews/NewReview';
 import ReviewsList from '../reviews/ReviewsList';
 import EditProduct from '../products/EditProduct';
-import './products.css'
+import './products.css';
 import './details.css';
 import { MessageContext } from '../context/message';
 import { UserContext } from '../context/user';
-import { MdOutlineExpandMore, MdOutlineExpandLess } from 'react-icons/md'
+import { MdOutlineExpandMore, MdOutlineExpandLess } from 'react-icons/md';
 
 const Product = ({ product, onAdd, isLoading }) => {
 	const [productObj, setProductObj] = useState(null);
@@ -19,7 +19,7 @@ const Product = ({ product, onAdd, isLoading }) => {
 	const history = useHistory();
 	const { setMessage } = useContext(MessageContext);
 	const { user } = useContext(UserContext);
-	const [show, setShow] = useState(true)
+	const [show, setShow] = useState(true);
 
 	useEffect(() => {
 		if (!product) {
@@ -45,7 +45,10 @@ const Product = ({ product, onAdd, isLoading }) => {
 		})
 			.then((r) => {
 				if (r.ok) {
-					setMessage({message: "Successfully deleted the product.", color: "green"})
+					setMessage({
+						message: 'Successfully deleted the product.',
+						color: 'green',
+					});
 					history.push('/products');
 				} else {
 					r.json().then((err) => setMessage(err.errors));
@@ -89,13 +92,16 @@ const Product = ({ product, onAdd, isLoading }) => {
 								</p> */}
 								<hr />
 								<p>Price: ${finalProduct.price}</p>
-								<button
-									className='btn btn-dark ms-2'
-							
-									onClick={() => onAdd(finalProduct)}
-								>
-									{isLoading ? "Adding" : "Add to Cart"}
-								</button>
+								{user ? (
+									<>
+										<button
+											className='btn btn-dark ms-2'
+											onClick={() => onAdd(finalProduct)}
+										>
+											{isLoading ? 'Adding' : 'Add to Cart'}
+										</button>
+									</>
+								) : null}
 								{user?.role === 'admin' ? (
 									<>
 										{location.pathname !== '/products' ? (
@@ -122,21 +128,29 @@ const Product = ({ product, onAdd, isLoading }) => {
 								{location.pathname !== '/products' ? (
 									<>
 										{!user ? null : (
-									<>
-									<br />
-									<div>
-										<button onClick={() => setShow((show) => !show)} style={{border: "none", backgroundColor: "white"}}>
-										{show ? <MdOutlineExpandMore /> : <MdOutlineExpandLess />} Add a Review
-										</button>
-									{!show ? (
-										<NewReview
-											productId={finalProduct.id}
-											addNewReview={addNewReview}
-										/>
-									) : null }
-									</div>
-									</>
-								)}
+											<>
+												<br />
+												<div>
+													<button
+														onClick={() => setShow((show) => !show)}
+														style={{ border: 'none', backgroundColor: 'white' }}
+													>
+														{show ? (
+															<MdOutlineExpandMore />
+														) : (
+															<MdOutlineExpandLess />
+														)}{' '}
+														Add a Review
+													</button>
+													{!show ? (
+														<NewReview
+															productId={finalProduct.id}
+															addNewReview={addNewReview}
+														/>
+													) : null}
+												</div>
+											</>
+										)}
 										<hr />
 										<ReviewsList reviews={reviews} />
 									</>
