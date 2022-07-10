@@ -1,5 +1,5 @@
 class Event < ApplicationRecord
-    belongs_to :host, class_name: "User", foreign_key: :user_id, dependent: :destroy
+    belongs_to :host, class_name: "User", foreign_key: :user_id
     has_many :orders, dependent: :destroy
     has_many :products, through: :orders
     has_many :reviews
