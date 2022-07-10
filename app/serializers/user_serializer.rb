@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :role, :email, :created_at
+  attributes :id, :username, :role, :email, :created_at, :total_ordered
 
   has_many :reviews
   has_many :posted_products

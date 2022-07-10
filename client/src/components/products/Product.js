@@ -87,9 +87,9 @@ const Product = ({ product, onAdd, isLoading }) => {
 								</Link>
 								<p className='card-text'>{finalProduct.description}</p>
 								<p>Cateogry: {finalProduct.category}</p>
-								{/* <p>
-									<em>Total Ordered: {finalProduct.ordered}</em>
-								</p> */}
+								<p>
+									<em>Total Event Ordered: {finalProduct.ordered}</em>
+								</p>
 								<hr />
 								<p>Price: ${finalProduct.price}</p>
 								{user ? (

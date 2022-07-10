@@ -14,7 +14,7 @@ const Cart = ({ onRemove, onAdd, products }) => {
 	const { user } = useContext(UserContext);
 	const [value, setValue] = useState('');
 	const { cart, setCart } = useContext(CartContext);
-	const { setMessage } = useContext(MessageContext)
+	const { setMessage } = useContext(MessageContext);
 	const form = useRef();
 
 	const eventOption = user?.hosted_events?.map((hevent) => [
@@ -30,8 +30,6 @@ const Cart = ({ onRemove, onAdd, products }) => {
 	const handleClick = () => {
 		history.push('/products');
 	};
-
-	console.log(value)
 
 	const reduceQuantity = (proc) => {
 		const newQuantity = proc.item_quantity - 1;
@@ -67,7 +65,10 @@ const Cart = ({ onRemove, onAdd, products }) => {
 			.then(
 				(result) => {
 					console.log(result.text);
-					setMessage({ message: `Order confirmed. Order confirmation was sent to ${user?.email}`, color: 'green' });
+					setMessage({
+						message: `Order confirmed. Order confirmation was sent to ${user?.email}`,
+						color: 'green',
+					});
 				},
 				(error) => {
 					console.log(error.text);
@@ -76,13 +77,12 @@ const Cart = ({ onRemove, onAdd, products }) => {
 	};
 
 	function handleCheckout() {
-		debugger
 		fetch('/api/checkout', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
 				user_id: user.id,
-				event_id: value
+				event_id: value,
 			}),
 		}).then((r) => {
 			setIsLoading(false);
@@ -103,7 +103,9 @@ const Cart = ({ onRemove, onAdd, products }) => {
 					</h2>
 				)}
 			</div>
-			{cart?.map((product) => {
+			{
+			
+			cart?.map((product) => {
 				const proc = products.find((item) => item.id === product.product_id);
 				return (
 					<div className='details' key={proc?.id}>
@@ -135,7 +137,8 @@ const Cart = ({ onRemove, onAdd, products }) => {
 									+{' '}
 								</button>
 								<span> Item Subtotal: ${proc?.item_total}</span>
-							</div>.
+							</div>
+							.
 						</div>
 						<button className='btn' onClick={() => onRemove(proc.id)}>
 							{' '}
@@ -149,25 +152,25 @@ const Cart = ({ onRemove, onAdd, products }) => {
 					<>
 						<form ref={form} onSubmit={sendEmail}>
 							<FormField>
-							<DropdownButton
-								title='Event List'
-								id='dropdown-menu-align-right'
-								onSelect={handleSelect}
-							>
-								{eventOption}
-								<Dropdown.Divider />
-								<Dropdown.Item as={Link} to='/event/new'>
-									New Event
-								</Dropdown.Item>
-							</DropdownButton>
+								<DropdownButton
+									title='Event List'
+									id='dropdown-menu-align-right'
+									onSelect={handleSelect}
+								>
+									{eventOption}
+									<Dropdown.Divider />
+									<Dropdown.Item as={Link} to='/event/new'>
+										New Event
+									</Dropdown.Item>
+								</DropdownButton>
 							</FormField>
 							<FormField>
 								<Label>Name</Label>
-								<Input type='text' name='user_name' value={user?.username}/>
+								<Input type='text' name='user_name' value={user?.username} />
 							</FormField>
 							<FormField>
 								<Label>Email</Label>
-								<Input type='email' name='user_email' value={user?.email}/>
+								<Input type='email' name='user_email' value={user?.email} />
 							</FormField>
 							<FormField>
 								{errors?.map((err) => (
@@ -178,7 +181,7 @@ const Cart = ({ onRemove, onAdd, products }) => {
 								{isLoading ? 'Loading...' : 'CHECK OUT'}
 							</Button>
 						</form>
-					
+
 						<Button className='mt-3' color='primary' onClick={handleClick}>
 							CONTINUE SHOPPING
 						</Button>

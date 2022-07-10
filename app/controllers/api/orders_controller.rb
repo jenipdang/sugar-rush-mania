@@ -31,8 +31,4 @@ class Api::OrdersController < ApplicationController
         @order = Order.find(params[:id])
     end
 
-    # def order_params
-    #     params.require(:order).permit(:event_id, :user_id)
-    # end
-
 end

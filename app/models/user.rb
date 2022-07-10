@@ -21,8 +21,8 @@ class User < ApplicationRecord
   # end
 
 
-  # def total_ordered
-  #   self.orders.uniq.length
-  # end
+  def total_ordered
+    self.orders.uniq.length
+  end
 
 end

@@ -6,7 +6,6 @@ import { Button, Error, FormField, Input, Label } from '../../styles';
 import { MessageContext } from '../context/message';
 import { UserContext } from '../context/user';
 
-
 const EventForm = () => {
 	const [event, setEvent] = useState({
 		name: '',
@@ -18,8 +17,8 @@ const EventForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState([]);
 	const history = useHistory();
-	const { user } = useContext(UserContext)
-	const { setMessage } = useContext(MessageContext)
+	const { user, setUser } = useContext(UserContext);
+	const { setMessage } = useContext(MessageContext);
 
 	const handleChange = (e) => {
 		setEvent({
@@ -33,18 +32,15 @@ const EventForm = () => {
 		datetime: event.datetime,
 		location: event.location,
 		address: event.address,
-		user_id: user.id
-	}
+		user_id: user.id,
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (
-			[
-				event.name,
-				event.datetime,
-				event.location,
-				event.address,
-			].some((val) => val.trim() === '')
+			[event.name, event.datetime, event.location, event.address].some(
+				(val) => val.trim() === ''
+			)
 		) {
 			alert('All information must be fill out.');
 		}
@@ -63,10 +59,14 @@ const EventForm = () => {
 				if (r.ok) {
 					r.json().then((data) => {
 						setMessage({
-							message: 'Successfully update the product information',
+							message: 'Successfully add a new event',
 							color: 'green',
 						});
-						setEvent([...orgData, data]);
+						setEvent(data);
+						setUser((user) => ({
+							...user,
+							hosted_events: [...user.hosted_events, data],
+						}));
 					});
 					history.push('/cart');
 				} else {
@@ -74,7 +74,7 @@ const EventForm = () => {
 				}
 			})
 			.catch((err) => setErrors(err.errors));
-		};
+	};
 
 	return (
 		<Wrapper>
@@ -133,7 +133,9 @@ const EventForm = () => {
 			<WrapperChild>
 				<h1>{event.name}</h1>
 				<h4>{event.datetime}</h4>
-				<p>{event.location} || {event.address}</p>
+				<p>
+					{event.location} || {event.address}
+				</p>
 			</WrapperChild>
 		</Wrapper>
 	);

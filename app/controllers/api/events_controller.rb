@@ -15,7 +15,6 @@ before_action :check_admin, only: [:update, :destroy]
 
   #POST "/events"
   def create
-    byebug
       event = current_user.hosted_events.create!(event_params)
       render json: event, status: :created
   end
