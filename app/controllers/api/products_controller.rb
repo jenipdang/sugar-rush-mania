@@ -1,5 +1,5 @@
 class Api::ProductsController < ApplicationController
-  skip_before_action :authorize, only: [:index, :show, :create, :destroy]
+  skip_before_action :authorize, only: [:index, :show, :create, :destroy, :most_popular]
   before_action :find_product, only: [:show, :update, :destroy]
   # before_action :check_admin, except: [:index, :show]
 

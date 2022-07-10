@@ -26,8 +26,8 @@ class Product < ApplicationRecord
         self.events.uniq.length
     end
 
-    # def total_sale
-    #     self.orders.all.sum{|p| p.total_order}
+    # def self.cart_total
+    #     self.all.sum{|p| p.item_total}
     # end
 
     # def total_reviwers

@@ -138,7 +138,6 @@ const Cart = ({ onRemove, onAdd, products }) => {
 								</button>
 								<span> Item Subtotal: ${proc?.item_total}</span>
 							</div>
-							.
 						</div>
 						<button className='btn' onClick={() => onRemove(proc.id)}>
 							{' '}
@@ -147,7 +146,7 @@ const Cart = ({ onRemove, onAdd, products }) => {
 					</div>
 				);
 			})}
-			<div className='total'>
+			<div className='checkout'>
 				{cart?.length !== 0 && (
 					<>
 						<form ref={form} onSubmit={sendEmail}>

@@ -68,8 +68,6 @@ function App() {
 			if (r.ok) {
 				r.json().then((cart_products) => {
 					setCart(cart_products);
-					//update products context
-					console.log(cart);
 					setMessage({ message: 'Succesfully add to cart', color: 'green' });
 				});
 			} else {
