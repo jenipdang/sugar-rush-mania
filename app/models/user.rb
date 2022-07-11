@@ -12,15 +12,6 @@ class User < ApplicationRecord
   validates :username, presence: true, length: {in: 6..25}
   validates :password, length: {in: 8..25}
 
-  # def sort_products
-  #   self.posted_products.order(name: 'asc')
-  # end
-
-  # def total_products_reviewed
-  #   self.reviewed_products.uniq.length
-  # end
-
-
   def total_ordered
     self.orders.uniq.length
   end
