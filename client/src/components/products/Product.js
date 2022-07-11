@@ -88,7 +88,7 @@ const Product = ({ product, onAdd, isLoading }) => {
 								<p className='card-text'>{finalProduct.description}</p>
 								<p>Cateogry: {finalProduct.category}</p>
 								<p>
-									<em>Total Event Ordered: {finalProduct.ordered}</em>
+									<em>Total Ordered for Events: {finalProduct.ordered}</em>
 								</p>
 								<hr />
 								<p>Price: ${finalProduct.price}</p>
