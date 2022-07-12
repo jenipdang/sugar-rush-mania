@@ -99,9 +99,6 @@ function App() {
 			<NavBar cart={cart} />
 			<Notification />
 			<Switch>
-				<Route path='/home'>
-					<FeatureProduct />
-				</Route>
 				<Route path='/contact'>
 					<Contact loading={isLoading} />
 				</Route>
@@ -138,6 +135,9 @@ function App() {
 				</Route>
 				<Route path='/account'>
 					<Login />
+				</Route>
+				<Route path='/'>
+					<FeatureProduct />
 				</Route>
 			</Switch>
 			<Footer />
