@@ -12,7 +12,6 @@ class Api::ProductsController < ApplicationController
       render json: @product
   end
 
- 
   def most_popular
     render json: Product.most_popular
   end
