@@ -73,10 +73,6 @@ import { GrMail } from 'react-icons/gr'
     align-items: center;
   `;
   
-  const Payment = styled.img`
-      width: 50%;
-  `;
-  
   const Footer = () => {
     return (
       <Container>
@@ -125,7 +121,6 @@ import { GrMail } from 'react-icons/gr'
           <ContactItem>
             <GrMail style={{marginRight:"10px"}}/> info@sugarrushmania.com
           </ContactItem>
-          <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
         </Right>
       </Container>
     );

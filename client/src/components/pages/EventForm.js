@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import { MdOutlineSignalCellularNodata } from 'react-icons/md';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Button, Error, FormField, Input, Label } from '../../styles';
