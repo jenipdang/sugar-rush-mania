@@ -127,6 +127,7 @@ const Product = ({ product, onAdd, isLoading }) => {
 								<br />
 								{location.pathname !== '/products' ? (
 									<>
+									{user?.orders.length === 0 ? null : <>
 										{!user ? null : (
 											<>
 												<br />
@@ -151,6 +152,7 @@ const Product = ({ product, onAdd, isLoading }) => {
 												</div>
 											</>
 										)}
+									</> }
 										<hr />
 										<ReviewsList reviews={reviews} />
 									</>
