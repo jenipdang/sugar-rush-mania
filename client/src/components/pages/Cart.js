@@ -111,7 +111,7 @@ const Cart = ({ onRemove, onAdd, products }) => {
 					<div className='details' key={proc?.id}>
 						<img
 							style={{ width: '200px', height: '200px' }}
-							src={proc?.image_url}
+							src={proc?.image_url.url}
 							alt={proc?.name}
 						/>
 						<div
