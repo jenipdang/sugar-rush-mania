@@ -86,7 +86,7 @@ const Product = ({ product, onAdd, isLoading }) => {
 									<h5 className='card-title'>{finalProduct.name}</h5>
 								</Link>
 								<p className='card-text'>{finalProduct.description}</p>
-								<p>Cateogry: {finalProduct.category}</p>
+								<p>Category: {finalProduct.category}</p>
 								<p>
 									<em>Total Ordered for Events: {finalProduct.ordered}</em>
 								</p>
