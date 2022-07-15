@@ -65,9 +65,10 @@ ActiveRecord::Schema.define(version: 2022_07_04_083508) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.bigint "event_id"
-    t.bigint "user_id"
-    t.bigint "product_id"
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_orders_on_event_id"
@@ -114,6 +115,9 @@ ActiveRecord::Schema.define(version: 2022_07_04_083508) do
   add_foreign_key "cart_products", "products"
   add_foreign_key "cart_products", "users"
   add_foreign_key "events", "users"
+  add_foreign_key "orders", "events"
+  add_foreign_key "orders", "products"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "users"
   add_foreign_key "reviews", "events"
   add_foreign_key "reviews", "products"

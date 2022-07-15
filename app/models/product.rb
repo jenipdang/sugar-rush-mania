@@ -26,9 +26,12 @@ class Product < ApplicationRecord
         self.events.uniq.length
     end
 
-
     def self.most_popular
         self.joins(:orders).group("products.id").order("count(products.id) desc").limit(3)
+    end
+
+    def total_sale
+        self.orders.sum{|o| o.quantity * o.product.price}
     end
 
 end

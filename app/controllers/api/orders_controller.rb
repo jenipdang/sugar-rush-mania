@@ -20,8 +20,8 @@ class Api::OrdersController < ApplicationController
     def create
         event = Event.find_by!(id: params[:event_id])
         current_user.cart_products.each do | cart_product | 
-            Order.create(user_id: current_user.id, product_id: cart_product.product_id, event_id: event.id)
-            cart_product.destroy
+            Order.create(user_id: current_user.id, product_id: cart_product.product_id, quantity: cart_product.quantity, event_id: event.id)
+            cart_product.delete
         end
     end
 

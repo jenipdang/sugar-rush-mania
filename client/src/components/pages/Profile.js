@@ -11,10 +11,6 @@ const Profile = () => {
 	const { user } = useContext(UserContext);
 
 
-	// function currencyFormat(num) {
-	// 	return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-	//  }
-
 	return (
 		<>
 			<div className='user'>
@@ -60,11 +56,11 @@ const Profile = () => {
 													to={`/products/${posted_product.id}`}
 													className='userShowInfoTitle'
 												>
-													{posted_product.name}  || 
-													{/* || events ordered:{' '}
-													{posted_product.ordered}  */}
-													{/* || current selling price: $ */}
-													{/* {posted_product.price} || total sale of {currencyFormat(posted_product.total_sale)}{' '}||{' '} */}
+													{posted_product.name} 
+													|| events ordered:{' '}
+													{posted_product.ordered} 
+													|| current selling price: $
+													{posted_product.price} || total sale: $ {posted_product.total_sale}{' '}||
 													<img
 														style={{ width: '50px', height: '50px' }}
 														src={posted_product.image_url} 
@@ -111,7 +107,8 @@ const Profile = () => {
 										<li key={hosted_event.id}>
 											<p className='userShowInfoTitle'>{hosted_event.name} || 
 											{hosted_event.address}
-											{/* total cost: {currencyFormat(hosted_event.total_cost)} */}
+											|| total: ${hosted_event.event_total} || 
+											Total Type of Products Ordered: <span>{hosted_event.total_products_ordered}</span>
 											</p>
 										</li>
 									))}
@@ -122,12 +119,16 @@ const Profile = () => {
 			<div className='user'>
 				{user?.role === 'guest' ? (
 					<div className='userShow'>
-						<span className='userShowTitle'>Past Products Ordered from Events|| Total Products Ordered: {user.total_ordered}</span>
+						<span className='userShowTitle'>Products Ordered from Events</span>
 						<ul>
-						{user.orders?.map((order) => (
-										<li key={order.id}>
-											<p className='userShowInfoTitle'>{order.event_name} || {order.sweet_name}
-											{/* || total order: {currencyFormat(order.total_order)} */}
+						{user.hosted_events.map((event) => (
+										<li key={event.id}>
+											<p className='userShowInfoTitle'>{event.name} : 
+											{event.products_ordered?.map((po) => (
+											<li key={po.id}>
+												{po}
+											</li>
+											))}
 											</p> 
 										</li>
 									))}
