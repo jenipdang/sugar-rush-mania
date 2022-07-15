@@ -3,5 +3,11 @@ class ProductSerializer < ActiveModel::Serializer
 
   has_many :reviews, as: :reviewers
 
+  include Rails.application.routes.url_helpers
   
+  def image_url
+    return nil unless object.image.attached?
+        object.image.blob.attributes.slice('filename', 'byte_size').merge(url: rails_blob_path(object.image, only_path: true)).tap { |attrs| attrs['name'] = attrs.delete('filename') }
+  end
+
 end

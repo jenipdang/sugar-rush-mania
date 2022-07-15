@@ -69,7 +69,7 @@ const Product = ({ product, onAdd, isLoading }) => {
 					<div className='col-md-4 mb-4' key={finalProduct.id}>
 						<div className='card'>
 							<img
-								src={finalProduct.image_url}
+								src={finalProduct.image_url.url}
 								className='card-img-top'
 								alt={finalProduct.name}
 							/>
