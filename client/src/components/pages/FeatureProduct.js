@@ -35,7 +35,7 @@ const FeatureProduct = () => {
 							<Carousel.Item key={fProduct.id}>
 								<img
 									className='d-block w-100'
-									src={fProduct.image_url}
+									src={fProduct.image_url.url}
 									alt={fProduct.name}
 								/>
 								<Carousel.Caption style={{ color: 'black' }}>
