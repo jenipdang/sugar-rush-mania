@@ -8,8 +8,7 @@ const NewReview = ({productId}) => {
     const [review, setReview] = useState({
       title: "",
       content: "",
-      rating: "",
-      event_id: "",
+      rating: ""
     })
     const { setMessage } = useContext(MessageContext)
     const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +39,7 @@ const NewReview = ({productId}) => {
         if (r.status === 201) {
           r.json()
           .then(review => {
-            setReview({title: review.title, content: review.content, rating: review.rating, event_id: review.event_id})
+            setReview({title: review.title, content: review.content, rating: review.rating})
             setMessage({message: "Review successfully added", color: "green"})
             history.push('/products')
           })
@@ -83,15 +82,6 @@ const NewReview = ({productId}) => {
                 placeholder='Rating from 1 to 5 (5 is the higest)'
               />
               </FormField>
-            <FormField>
-              <Input
-                type='text'
-                name='event_id'
-                value={review.event_id}
-                onChange={handleChange}
-                placeholder='Enter your event order #'
-              />
-            </FormField>
             <FormField>
               <Button onClick={handleSubmit} color='primary' type='submit'>
                 {isLoading ? 'Loading...' : 'Submit'}

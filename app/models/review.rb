@@ -1,6 +1,5 @@
 class Review < ApplicationRecord
   belongs_to :product
-  belongs_to :event
   belongs_to :reviewer, class_name: "User", foreign_key: :user_id
 
   validates :title, presence: true
