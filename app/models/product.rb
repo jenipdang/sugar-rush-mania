@@ -10,10 +10,6 @@ class Product < ApplicationRecord
     validates :name, :price, :description, :category, presence: true
     validates :price, numericality: { in: 0..500 }
 
-    # def image_url
-    #     Rails.application.routes.url_helpers.url_for(image) if image.attached? 
-    # end
-
     def item_quantity
         self.cart_products.sum{|product| product.quantity}
     end
