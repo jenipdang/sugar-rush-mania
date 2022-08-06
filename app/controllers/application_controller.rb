@@ -24,7 +24,5 @@ class ApplicationController < ActionController::API
     render json: { errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
   end
 
-  private 
-
   
 end

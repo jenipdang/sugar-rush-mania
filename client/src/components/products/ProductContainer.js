@@ -4,12 +4,14 @@ import Search from './Search'
 import Filter from './Filter'
 import { useContext } from 'react'
 import { MessageContext } from '../context/message'
+import useWindowSize from '../hooks/useWindowSize'
 
 const ProductContainer = ({onAdd, prods}) => {
     const [products, setProducts ] = useState([])
     const [search, setSearch] = useState('')
     const [searchResult, setSearchResult] = useState([])
     const { setMessage } = useContext(MessageContext)
+    const isMobile = useWindowSize()
 
   
     useEffect(() => {
@@ -55,6 +57,7 @@ const ProductContainer = ({onAdd, prods}) => {
  
   return (
     <div className='container'>
+      {isMobile.width < 760 ? null : <>
       	<header className='blog-header position-fixed'>
 					<div className='row flex-nowrap justify-content-between align-items-center'>
 						<div className='col-6 text-center'>
@@ -63,6 +66,7 @@ const ProductContainer = ({onAdd, prods}) => {
 						</div>
 					</div>
 				</header>
+      </>}
         <ProductList products={searchResult} onAdd={onAdd}/>
     </div>
   )
